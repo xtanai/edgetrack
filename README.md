@@ -133,6 +133,23 @@
 
 ---
 
+## Roadmap
+
+* On‑Pi NEON/GPU kernels for faster undistort/normalize
+* Lightweight on‑Pi detector for ROI without full keypointing
+* **Pi5Fusion**: multi‑rig calibration tool (AprilTag board solve, BA), per‑rig latency compensation, timebase alignment
+* Configurable ROS/ZeroMQ bridges; log‑ring buffers
+* Calibration helper for L‑brackets (tag layout generator)
+* MotionCoder adapter: joint remapping, confidence gating, state machine hooks
+
+---
+
+## License
+
+**Apache‑2.0** (code, firmware, docs). Hardware files (rig plates, brackets) may use **CERN‑OHL‑S**.
+
+---
+
 ## Safety
 
 * **850 nm IR is invisible and hazardous**—follow **IEC 62471** guidelines.
@@ -153,21 +170,3 @@
 
 * **Option D – Side-shield eyewear (“horse blinkers” idea):**
   Provide **IR-blocking safety glasses with side shields** for operators/visitors when emitters face forward. Choose eyewear rated for **near-IR attenuation** and ensure a snug fit to block off-axis light.
-
-
----
-
-## Roadmap
-
-* On‑Pi NEON/GPU kernels for faster undistort/normalize
-* Lightweight on‑Pi detector for ROI without full keypointing
-* **Pi5Fusion**: multi‑rig calibration tool (AprilTag board solve, BA), per‑rig latency compensation, timebase alignment
-* Configurable ROS/ZeroMQ bridges; log‑ring buffers
-* Calibration helper for L‑brackets (tag layout generator)
-* MotionCoder adapter: joint remapping, confidence gating, state machine hooks
-
----
-
-## License
-
-**Apache‑2.0** (code, firmware, docs). Hardware files (rig plates, brackets) may use **CERN‑OHL‑S**.
