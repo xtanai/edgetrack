@@ -1,6 +1,6 @@
 # EdgeTrack
 
-**RAW10 mono ingest and on‑edge preprocessing on Raspberry Pi 5** with synchronized multi‑camera capture for real‑time 3D hand/gesture tracking. EdgeTrack handles **camera I/O, undistortion/normalization, optional on‑Pi keypoints**, and publishes **ROI‑reduced point clouds / keypoint tracks** to a host over **Gigabit LAN**. Designed to pair with **TDMStrobe** (IR throw/fill, A/B/C/D phases) for deterministic lighting.
+**EdgeTrack** is an on-edge capture and preprocessing stack for synchronized **RAW10 mono multi-camera** pipelines, targeting **Raspberry Pi 5 (primary)** or **Radxa Dragon Q6A (secondary)**. It provides **deterministic camera I/O**, **calibration-aware undistortion/normalization**, and **on-edge triangulation** to output **true 3D keypoints** (time-consistent trajectories) in real time. Optionally, it can publish **ROI-reduced point clouds** to a host over **Gigabit LAN**. EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-latency capture, and **deterministic NIR illumination** via throw/fill channels and **A/B/C/D phase sequencing**.
 
 > **Status:** early prototype. APIs and wiring may change.
 
@@ -20,9 +20,9 @@
 
 ```
 [ TDMStrobe (RP2040) ] ── TRIG A/B ─► [ EdgeTrack ] ── LAN ─► [ CoreFusion (Host PC) ] ──► MotionCoder
-                                 │               │                         │
-                            2× MIPI‑CSI      ROI point clouds /        Multi‑stereo fusion,
-                         (global‑shutter)    keypoints + refs          calibration, 3D key‑pose
+                               │               │                         │
+                       2× MIPI‑CSI      ROI point clouds /        Multi‑stereo fusion,
+                    (global‑shutter)    keypoints + refs          calibration, 3D key‑pose
 ```
 
 * **Pi 5** ingests **RAW10 mono** from **2× MIPI‑CSI** (e.g., OV9281), performs **undistort/normalize**, optional **2D keypoints**, and sends **ROI‑compressed data** to the host.
