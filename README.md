@@ -1,12 +1,12 @@
-# Pi5Track3D
+# EdgeTrack
 
-**RAW10 mono ingest and on‑edge preprocessing on Raspberry Pi 5** with synchronized multi‑camera capture for real‑time 3D hand/gesture tracking. Pi5Track3D handles **camera I/O, undistortion/normalization, optional on‑Pi keypoints**, and publishes **ROI‑reduced point clouds / keypoint tracks** to a host over **Gigabit LAN**. Designed to pair with **TDMStrobe** (IR throw/fill, A/B/C/D phases) for deterministic lighting.
+**RAW10 mono ingest and on‑edge preprocessing on Raspberry Pi 5** with synchronized multi‑camera capture for real‑time 3D hand/gesture tracking. EdgeTrack handles **camera I/O, undistortion/normalization, optional on‑Pi keypoints**, and publishes **ROI‑reduced point clouds / keypoint tracks** to a host over **Gigabit LAN**. Designed to pair with **TDMStrobe** (IR throw/fill, A/B/C/D phases) for deterministic lighting.
 
 > **Status:** early prototype. APIs and wiring may change.
 
 ---
 
-## Why Pi5Track3D?
+## Why EdgeTrack?
 
 * **Deterministic capture**: synchronized global‑shutter sensors, TDM strobe phases
 * **Low latency**: on‑Pi preproc (undistort, normalize, crop, optional 2D keypoints)
@@ -19,7 +19,7 @@
 ## System Overview
 
 ```
-[ TDMStrobe (RP2040) ] ── TRIG A/B ─► [ Pi5Track3D ] ── LAN ─► [ Pi5Fusion (Host PC) ] ──► MotionCoder
+[ TDMStrobe (RP2040) ] ── TRIG A/B ─► [ EdgeTrack ] ── LAN ─► [ CoreFusion (Host PC) ] ──► MotionCoder
                                  │               │                         │
                             2× MIPI‑CSI      ROI point clouds /        Multi‑stereo fusion,
                          (global‑shutter)    keypoints + refs          calibration, 3D key‑pose
@@ -86,8 +86,8 @@
 1. **Capture** RAW10→DNG‑like buffers; timestamps + phase IDs from TDM
 2. **Preprocess**: undistort, normalize, crop to hand ROI
 3. **(Optional) 2D keypoints** on‑Pi; otherwise, forward crops to host for keypointing
-4. **Publish** over LAN to **Pi5Fusion**: ROI point clouds / keypoints + **reference set** (AprilTag corners, wrist band, fingertip aids)
-5. **Pi5Fusion (Host PC)**: multi‑stereo calibration & **fusion** (bundle adjustment / filtering), **precise 3D key‑pose** estimation
+4. **Publish** over LAN to **CoreFusion**: ROI point clouds / keypoints + **reference set** (AprilTag corners, wrist band, fingertip aids)
+5. **CoreFusion (Host PC)**: multi‑stereo calibration & **fusion** (bundle adjustment / filtering), **precise 3D key‑pose** estimation
 6. **Output to MotionCoder**: clean, low‑latency 3D key‑pose stream (joints + confidences)
 
 ---
@@ -96,19 +96,19 @@
 
 * **Global shutter** cameras recommended
 * **TDM phases**: A/B per frame (C/D optional). Pulses must sit **inside exposure**
-* Pi5Track3D listens to **EXPOSE/FLASH** and phase lines; timestamps all frames
+* EdgeTrack listens to **EXPOSE/FLASH** and phase lines; timestamps all frames
 * Host enforces **frame‑to‑frame phase consistency** and discards cross‑lit frames
 
 ---
 
 ## Configuration
 
-* **Pi5Track3D (edge)**: camera IDs, intrinsics/extrinsics, FOV, baseline
+* **EdgeTrack (edge)**: camera IDs, intrinsics/extrinsics, FOV, baseline
 * **Lighting**: phase map, nominal pulse widths (Throw/Fill), guard times
 * **Networking**: transport (UDP/ZeroMQ/TCP), MTU, topics
 * **ROI policy**: detector thresholds, crop sizes, hysteresis
 * **Markers**: AprilTag families, board layout, wrist/fingertip options
-* **Pi5Fusion (host)**: rig registry (3–4 stereo pairs), inter‑rig extrinsics, fusion weights, outlier rejection, smoothing window, output FPS/format
+* **CoreFusion (host)**: rig registry (3–4 stereo pairs), inter‑rig extrinsics, fusion weights, outlier rejection, smoothing window, output FPS/format
 
 ---
 
@@ -117,7 +117,7 @@
 1. Mount the **L‑brackets** with AprilTags; verify coverage from both cameras
 2. Wire **TDMStrobe** (A/B sync) to the stereo rig; set Throw/Fill pulses
 3. Power from the **central 24 V PSU**; feed **5.1 V** to the Pi via buck
-4. Start Pi5Track3D; load the rig config; check undistortion/normalization
+4. Start EdgeTrack; load the rig config; check undistortion/normalization
 5. Verify **histogram 70–80% FS** at target exposure; adjust strobe pulses
 6. Enable **ROI** and (optional) **on‑Pi keypoints**; stream to host
 
@@ -137,7 +137,7 @@
 
 * On‑Pi NEON/GPU kernels for faster undistort/normalize
 * Lightweight on‑Pi detector for ROI without full keypointing
-* **Pi5Fusion**: multi‑rig calibration tool (AprilTag board solve, BA), per‑rig latency compensation, timebase alignment
+* **CoreFusion**: multi‑rig calibration tool (AprilTag board solve, BA), per‑rig latency compensation, timebase alignment
 * Configurable ROS/ZeroMQ bridges; log‑ring buffers
 * Calibration helper for L‑brackets (tag layout generator)
 * MotionCoder adapter: joint remapping, confidence gating, state machine hooks
