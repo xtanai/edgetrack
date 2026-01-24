@@ -68,7 +68,7 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 
 * **TDMStrobe** controller based on RP2040/Pico, providing A/B phases (C/D optional). Source: [TDMStrobe](https://github.com/xtanai/tdmstrobe)
 * **IR emitters**: prototype 120°; production 60° (throw) + 90° (fill)
-* 2‑wire **Click‑Stereo** sync cables from TDMStrobe to camera rig
+* 2‑wire sync cables from TDMStrobe to camera rig
 
 **Power**
 
