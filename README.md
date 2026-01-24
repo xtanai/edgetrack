@@ -1,18 +1,25 @@
 # EdgeTrack
 
-**EdgeTrack** is an on-edge capture and preprocessing stack for synchronized **RAW10 mono multi-camera** pipelines, targeting **Raspberry Pi 5 (primary)** or **Radxa Dragon Q6A (secondary)**. It provides **deterministic camera I/O**, **calibration-aware undistortion/normalization**, and **on-edge triangulation** to output **true 3D keypoints** (time-consistent trajectories) in real time. Optionally, it can publish **ROI-reduced point clouds** to a host over **Gigabit LAN**. EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-latency capture, and **deterministic NIR illumination** via throw/fill channels and **A/B/C/D phase sequencing**.
+**EdgeTrack** is an on-edge capture and preprocessing stack for synchronized **RAW10 mono multi-camera** pipelines, targeting **Raspberry Pi 5 (primary)** or **Radxa Dragon Q6A (secondary)**.
+It provides **deterministic camera I/O**, **calibration-aware undistortion/normalization**, and **on-edge stereo reconstruction** to output **true metric 3D keypoints** with time-consistent sampling.
+Optionally, EdgeTrack can publish **ROI-reduced sparse 3D point clouds** and **reference features** (e.g. AprilTags, wristband, fingertips) to a host over **Gigabit LAN**.
 
-> **Status:** early prototype. APIs and wiring may change.
+EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-latency capture, and **deterministic NIR illumination** via throw/fill channels and **A/B/C/D phase sequencing**.
+
+> **Status:** early prototype. APIs, wiring, and schemas may change.
 
 ---
 
 ## Why EdgeTrack?
 
-* **Deterministic capture**: synchronized global‑shutter sensors, TDM strobe phases
-* **Low latency**: on‑Pi preproc (undistort, normalize, crop, optional 2D keypoints)
-* **Bandwidth‑friendly**: transmit only **ROI point clouds / keypoints**, not raw video
-* **Modular**: 2× cameras per Pi (stereo). Scale to **3–4 stereos** via LAN
-* **Marker‑optional**: gloveless by default; **wristband** improves stability; **fingertip markers** reach best precision
+* **True 3D at the edge:** Stereo reconstruction runs on-device, producing **metric 3D keypoints** instead of raw images or 2D detections.
+* **Deterministic capture:** Synchronized **global-shutter sensors** with TDM strobe phases ensure repeatable timing and geometry.
+* **Low latency:** Edge-side preprocessing and triangulation minimize host-side load and end-to-end delay.
+* **Bandwidth-efficient:** Transmits only **3D keypoints, sparse ROI point clouds, and references** — no raw video streaming.
+* **Scalable:** 2× cameras per device (stereo); combine **3–4 stereo rigs** via LAN.
+* **Marker-optional:** Gloveless by default; **wristbands** improve arm stability; **fingertip markers** enable highest precision.
+* **Optional NPU assist:** Use an optional NPU to improve robustness (e.g., fast left/right disambiguation, consistency checks, and early error detection).
+* **Optional RGB helper camera:** A center-mounted RGB camera can support setup workflows (visual inspection, text/marker reading, calibration aids) **without being part of the 3D reconstruction path**.
 
 ---
 
@@ -21,24 +28,24 @@
 ```
 [ TDMStrobe (RP2040) ] ── TRIG A/B ─► [ EdgeTrack ] ── LAN ─► [ CoreFusion (Host PC) ] ──► MotionCoder
                                │               │                         │
-                       2× MIPI‑CSI      ROI point clouds /        Multi‑stereo fusion,
-                    (global‑shutter)    keypoints + refs          calibration, 3D key‑pose
+                       2× MIPI-CSI        3D keypoints,           Multi-stereo fusion,
+                    (global-shutter)   ROI point clouds, refs     calibration, 3D key-pose
 ```
 
-* **Pi 5** ingests **RAW10 mono** from **2× MIPI‑CSI** (e.g., OV9281), performs **undistort/normalize**, optional **2D keypoints**, and sends **ROI‑compressed data** to the host.
-* **TDMStrobe** provides **A/B (optional C/D)** IR pulses and **2‑wire sync** for shutter/LED timing, ensuring clean Z across views.
-* **AprilTag reference boards**: two **removable L‑brackets** around the work area with tags on multiple faces. This stabilizes **Z‑scale** and improves re‑localization.
+* **Pi 5** ingests **RAW10 mono** from **2× MIPI-CSI** cameras (e.g. OV9281), performs **undistortion, normalization, ROI extraction**, and **stereo triangulation**.
+* **TDMStrobe** provides **A/B (optional C/D)** IR pulses and **2-wire sync** for shutter/LED timing, ensuring stable Z across views.
+* **AprilTag reference boards**: two removable **L-brackets** with tags on multiple faces stabilize **scale, orientation, and re-localization**.
 
 ---
 
 ## Features
 
-* **RAW10 mono ingest** (global shutter) with GPU/NEON‑assisted preprocessing
-* **On‑edge ops**: undistortion, normalization, ROI cropping, temporal filtering
-* **Optional 2D keypoints** on‑Pi; otherwise, forward crops to host for keypointing
-* **ROI point clouds** (hand‑only) with embedded **reference points** (AprilTag/wrist/fingertip aids)
-* **Hard/soft sync**: EXPOSE/FLASH in from TDMStrobe; phase‑aligned capture
-* **LAN publisher**: Zero‑copy UDP/ZeroMQ/TCP (configurable)
+* **RAW10 mono ingest** (global shutter) with NEON/GPU-assisted preprocessing
+* **On-edge processing**: undistortion, normalization, ROI extraction, stereo reconstruction
+* **Metric 3D keypoints** (hands, wrist, fingertips) generated directly on the edge
+* **Sparse ROI point clouds** with embedded **reference features** (AprilTags, wristband, fingertip aids)
+* **Hard/soft sync**: EXPOSE/FLASH input from TDMStrobe; phase-aligned capture
+* **LAN publisher**: zero-copy **UDP / ZeroMQ / TCP** (configurable)
 
 ---
 
@@ -83,32 +90,33 @@
 
 ## Data Flow
 
-1. **Capture** RAW10→DNG‑like buffers; timestamps + phase IDs from TDM
-2. **Preprocess**: undistort, normalize, crop to hand ROI
-3. **(Optional) 2D keypoints** on‑Pi; otherwise, forward crops to host for keypointing
-4. **Publish** over LAN to **CoreFusion**: ROI point clouds / keypoints + **reference set** (AprilTag corners, wrist band, fingertip aids)
-5. **CoreFusion (Host PC)**: multi‑stereo calibration & **fusion** (bundle adjustment / filtering), **precise 3D key‑pose** estimation
-6. **Output to MotionCoder**: clean, low‑latency 3D key‑pose stream (joints + confidences)
+1. **Capture** RAW10 frames; attach timestamps and TDM phase IDs
+2. **Preprocess**: undistort, normalize, extract hand ROI
+3. **Stereo reconstruction** → **metric 3D keypoints**
+4. **Augment** with optional **ROI point clouds** and **reference features**
+5. **Publish** over LAN to **CoreFusion**
+6. **CoreFusion** performs multi-rig calibration, fusion, filtering
+7. **Output to MotionCoder**: clean, low-latency **3D key-pose stream**
 
 ---
 
 ## Synchronization
 
-* **Global shutter** cameras recommended
-* **TDM phases**: A/B per frame (C/D optional). Pulses must sit **inside exposure**
-* EdgeTrack listens to **EXPOSE/FLASH** and phase lines; timestamps all frames
-* Host enforces **frame‑to‑frame phase consistency** and discards cross‑lit frames
+* **Global-shutter cameras required**
+* **TDM phases** A/B per frame (C/D optional); pulses must sit **inside exposure**
+* EdgeTrack timestamps all frames using EXPOSE/FLASH signals
+* Host enforces **phase consistency** and rejects cross-lit frames
 
 ---
 
 ## Configuration
 
-* **EdgeTrack (edge)**: camera IDs, intrinsics/extrinsics, FOV, baseline
-* **Lighting**: phase map, nominal pulse widths (Throw/Fill), guard times
-* **Networking**: transport (UDP/ZeroMQ/TCP), MTU, topics
+* **EdgeTrack (edge)**: camera IDs, intrinsics/extrinsics, baseline, FOV
+* **Lighting**: phase map, throw/fill pulse widths, guard times
+* **Networking**: transport (UDP / ZeroMQ / TCP), MTU, topics
 * **ROI policy**: detector thresholds, crop sizes, hysteresis
-* **Markers**: AprilTag families, board layout, wrist/fingertip options
-* **CoreFusion (host)**: rig registry (3–4 stereo pairs), inter‑rig extrinsics, fusion weights, outlier rejection, smoothing window, output FPS/format
+* **References**: AprilTag families, board layout, wrist/fingertip options
+* **CoreFusion (host)**: rig registry, inter-rig extrinsics, fusion weights, outlier rejection, smoothing, output FPS/format
 
 ---
 
@@ -125,11 +133,11 @@
 
 ## Best Practices
 
-* Prefer **60–90° optics** and **solid baselines (≥ 0.2 m)** for Z precision
-* Keep **exposure short** (no blur); use strobe for light, not longer shutter
-* Fix **gain** and **gamma=1** (linear); avoid auto‑everything
-* Calibrate carefully (Charuco + bundle adjust); use **NIR band‑pass**
-* Keep rigs **mechanically stiff**; avoid vibration & thermal drift
+* Prefer **60–90° optics** and **baselines ≥ 0.2 m** for Z precision
+* Keep **exposure short**; use strobes for illumination, not shutter time
+* Fix **gain** and **gamma = 1.0** (linear); disable auto-everything
+* Use **NIR band-pass filters** and rigid, thermally stable mounts
+* Calibrate carefully (Charuco + bundle adjustment)
 
 ---
 
