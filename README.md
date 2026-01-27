@@ -71,6 +71,8 @@ USB, Ethernet, and WLAN are all commonly used to connect cameras and tracking de
 
 In practice, USB is convenient for simple setups, Ethernet offers the most control and scalability for deterministic systems, and WLAN trades predictability for mobility and ease of deployment.
 
+> **Note:** For deterministic timing, direct NIC connections are preferred; network switches may introduce additional latency and jitter and are therefore discouraged.
+
 ---
 
 ## Concept: Replacing CoaXPress
