@@ -40,7 +40,7 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 | On-device accelerator support (NPU/GPU)       |  No    |        No          |      No      |     No      |    No     |      No       |      No      |   Yes**   |
 | Expandable hardware (add-ons / upgrades)      |  No    |        No          |      No      |     No      |    No     |      No       |      No      |   Yes    |
 | Typical interface                             | USB | USB | USB | USB | Ethernet | USB / GigE | USB | Ethernet |
-| Typical price range                           |  $$$   |        $$          |     $$$      |      $      |   $$$$    |      $$$      |     $$       |  $–$$    |
+| Typical price range                           |  $$$   |        $$          |     $$$      |      $      |   $$$$    |      $$$      |     $$       |  $$    |
 
 \* Depends on camera selection and edge platform configuration.
 
