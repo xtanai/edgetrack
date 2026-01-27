@@ -95,8 +95,9 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 
 **Cameras (Stereo per Pi)**
 
-* 2× **global‑shutter mono** modules (e.g., OV9281 1280×800 @ up to 120 fps)
 *Note: Select the camera based on your budget and requirements. See the GitHub documentation for details: 👉 [Sensor Guide](https://github.com/xtanai/sensor-guide).*
+
+* 2× **global‑shutter mono** modules (e.g., OV9281 1280×800 @ up to 120 fps)
 * 2× **lenses** matched to FOV (target 60–90° for precision; 120° only for bring‑up)
 * **850 nm band‑pass filters** (camera‑safe IR)
 * **Rigid stereo mount** with baseline ~200–300 mm (context‑dependent)
