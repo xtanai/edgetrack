@@ -25,7 +25,7 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 
 ---
 
-## Comparison
+## Comparison of Available Hardware on the Market
 
 > Note: This comparison focuses on architectural capabilities and integration models.
 > Feature availability may vary by configuration and firmware.
