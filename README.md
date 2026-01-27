@@ -73,6 +73,26 @@ In practice, USB is convenient for simple setups, Ethernet offers the most contr
 
 ---
 
+## Concept: Replacing CoaXPress
+
+A camera infrastructure based on **CoaXPress** would be technically ideal in terms of bandwidth and timing precision, but it is **cost-intensive** and requires significant **integration effort**, including dedicated **frame grabbers** and complex host-side setups.
+
+Instead, comparable precision gains can be achieved through a **carefully specified multi-view geometry** combined with **edge-side preprocessing**. Using **calibrated stereo triangulation** and **early fusion** in **CoreFusion**, the system produces **stable, reproducible 3D signals** with a substantially lower system and integration cost.
+
+For the intended application, this approach reaches result quality that is close to CoaXPress-based setups, while offering **simpler integration**, **lower hardware complexity**, and **significantly better cost-efficient scalability**—enabling additional rigs to be added over standard LAN connections rather than requiring extra frame-grabber channels.
+
+---
+
+## Innovative TDM (Time-Division Multiplexing)
+
+EdgeTrack uses **phase-offset global-shutter capture (TDM)**, where multiple stereo rigs are triggered in **time-interleaved phases** rather than exposing all views simultaneously. This approach can **reduce occlusion** and improve **timing consistency**, which is especially valuable in **close-range, tool-centric workflows** where stable, repeatable input matters.
+
+EdgeTrack is designed to work **markerless by default**, but it also supports optional **small, purpose-specific markers** when additional robustness is needed. For example, subtle fingertip markers or markers placed directly on a tool can stabilize tracking in demanding scenarios. A “3D pencil” in VR, assisted by two small markers, can enable highly precise pen-like input—useful for natural writing gestures or reliable virtual keyboard interaction.
+
+A small **MCU-based trigger controller** can generate deterministic, phase-shifted triggers for **up to eight stereo rigs** at **120 FPS per rig**. When these streams are fused in **CoreFusion**, the system can reach an **effective aggregate update rate** of up to roughly **~960 Hz** across all rigs, while maintaining high temporal stability (low jitter), depending on configuration and synchronization settings.
+
+---
+
 ## System Overview
 
 ```
