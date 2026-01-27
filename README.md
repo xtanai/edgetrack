@@ -129,16 +129,14 @@ A small **MCU-based trigger controller** can generate deterministic, phase-shift
 
 **Cameras (Stereo per Pi)**
 
-*Note: Select the camera based on your budget and requirements. See the GitHub documentation for details: 👉 [Sensor Guide](https://github.com/xtanai/sensor-guide).*
-
-* 2× **global‑shutter mono** modules (e.g., OV9281 1280×800 @ up to 120 fps)
-* 2× **lenses** matched to FOV (target 60–90° for precision; 120° only for bring‑up)
+* 2× **global‑shutter mono** modules (e.g., OV9281 1280×800 @ up to 120 fps). Source: 👉 [Sensor Guide](https://github.com/xtanai/sensor-guide)
+* 2× **lenses** matched to FOV (target 60–90° for precision; 120° only for bring‑up) Source: 👉 [Vision Geometry Rules](https://github.com/xtanai/geo_rules)
 * **850 nm band‑pass filters** (camera‑safe IR)
 * **Rigid stereo mount** with baseline ~200–300 mm (context‑dependent)
 
 **Lighting / Sync**
 
-* **TDMStrobe** controller based on RP2040/Pico, providing A/B phases (C/D optional). Source: [TDMStrobe](https://github.com/xtanai/tdmstrobe)
+* **TDMStrobe** controller based on RP2040/Pico, providing A/B phases (C/D optional). Source: 👉 [TDMStrobe](https://github.com/xtanai/tdmstrobe)
 * **IR emitters**: prototype 120°; production 60° (throw) + 90° (fill)
 * 2‑wire sync cables from TDMStrobe to camera rig
 
