@@ -1,5 +1,7 @@
 # EdgeTrack
 
+EdgeTrack is designed as a deterministic capture backend for professional 3D authoring and interaction systems, not as a consumer depth camera or XR peripheral.
+
 **EdgeTrack** is an on-edge capture and preprocessing stack for synchronized **RAW10 mono multi-camera** pipelines, targeting **Raspberry Pi 5 (primary)** or **Radxa Dragon Q6A (secondary)**.
 It provides **deterministic camera I/O**, **calibration-aware undistortion/normalization**, and **on-edge stereo reconstruction** to output **true metric 3D keypoints** with time-consistent sampling.
 Optionally, EdgeTrack can publish **ROI-reduced sparse 3D point clouds** and **reference features** (e.g. AprilTags, wristband, fingertips) to a host over **Gigabit LAN**.
@@ -25,6 +27,9 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 
 ## Comparison
 
+> Note: This comparison focuses on architectural capabilities and integration models.
+> Feature availability may vary by configuration and firmware.
+
 | Feature / Focus                              | ZED 2i | RealSense (Stereo) | Bumblebee® X | Leap Motion | OptiTrack | Basler Stereo | Orbbec Gemini | EdgeTrack |
 |----------------------------------------------|:------:|:------------------:|:------------:|:-----------:|:---------:|:-------------:|:------------:|:--------:|
 | Primary use case                              | Depth sensing / XR | Depth sensing | Stereo vision | XR hand tracking | MoCap | Stereo vision | Depth sensing | Editor authoring |
@@ -46,7 +51,11 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 
 \** EdgeTrack accelerator support depends on the selected edge platform (e.g., optional NPU/GPU modules).
 
-* Note: **“Phase-offset capture”** is a key advantage. It uses time-interleaved capture phases across multiple rigs to improve timing stability and reduce occlusion. After fusion in **CoreFusion**, the system can reach an **effective aggregate update rate** approaching **~1000 Hz or higher**, depending on the number of rigs, per-rig capture FPS, and synchronization settings.
+* Note: **“Phase-offset capture”** is a key advantage. It uses time-interleaved
+  capture phases across multiple rigs to improve timing stability and reduce
+  occlusion. After fusion in **CoreFusion**, the system can reach an **effective
+  aggregate update rate** on the order of **~1000 Hz** (configuration-dependent),
+  depending on the number of rigs, per-rig capture FPS, and synchronization settings.
 
 ---
 
@@ -176,6 +185,16 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 * Configurable ROS/ZeroMQ bridges; log‑ring buffers
 * Calibration helper for L‑brackets (tag layout generator)
 * MotionCoder adapter: joint remapping, confidence gating, state machine hooks
+
+---
+
+**Note:**
+
+For high-precision CAD/DCC workflows, multi-view NIR systems with global-shutter
+cameras and synchronized strobes provide strong advantages in accuracy, timing
+stability, and drift resistance. EdgeTrack is designed specifically for these
+requirements and targets deterministic authoring and interaction use cases rather
+than general-purpose consumer hand-tracking or inside-out XR solutions.
 
 ---
 
