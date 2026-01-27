@@ -36,7 +36,7 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 | Capture FPS (typical)                         | Low–Mid |     Low–Mid       |   Low–Mid    |    High     | Very High |    Low–Mid    |      Mid     | Very High* |
 | Stereo / multi-camera                         |  Yes   |        Yes         |     Yes      |     No      |    Yes    |      Yes      |     Yes      |   Yes    |
 | Multi-device fusion (native)                  | Limited|      Limited       |      No      |     No      |    Yes    |      No       |      No      |   Yes    |
-| Phase-offset capture                          |  No    |        No          |      No      |     No      |    No     |      No       |      No      |   Yes    |
+| Phase-offset capture (TDM Module)             |  No    |        No          |      No      |     No      |    No     |      No       |      No      |   Yes    |
 | **Deterministic event layer**                 |  No    |        No          |      No      |   Limited   |  **Yes**  |      No       |      No      | **Yes**  |
 | **Editor-oriented API**                       |  No    |        No          |      No      |     No      |    No     |      No       |      No      | **Yes**  |
 | Open-source core / SDK                        |  No    |      Partial       |      No      |     No      |    No     |      No       |   Partial    |   Yes    |
