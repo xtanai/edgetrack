@@ -188,16 +188,6 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 
 ---
 
-**Note:**
-
-For high-precision CAD/DCC workflows, multi-view NIR systems with global-shutter
-cameras and synchronized strobes provide strong advantages in accuracy, timing
-stability, and drift resistance. EdgeTrack is designed specifically for these
-requirements and targets deterministic authoring and interaction use cases rather
-than general-purpose consumer hand-tracking or inside-out XR solutions.
-
----
-
 ## License
 
 **Apache‑2.0** (code, firmware, docs). Hardware files (rig plates, brackets) may use **CERN‑OHL‑S**.
@@ -227,7 +217,11 @@ than general-purpose consumer hand-tracking or inside-out XR solutions.
 
 **Note:** 
 
-For high-precision CAD/DCC tracking, **multi-view NIR with global-shutter cameras and synchronized strobes** typically outperforms inside-out approaches (e.g., consumer hand-tracking like **Leap Motion** or **ToF** controllers) in **accuracy, drift resistance, and latency**—making it a uniquely capable solution compared with devices such as the **Meta Quest 3** and similar systems.
+For high-precision CAD/DCC workflows, multi-view NIR systems with global-shutter
+cameras and synchronized strobes provide strong advantages in accuracy, timing
+stability, and drift resistance. EdgeTrack is designed specifically for these
+requirements and targets deterministic authoring and interaction use cases rather
+than general-purpose consumer hand-tracking or inside-out XR solutions.
 
 ### Disclaimer
 
