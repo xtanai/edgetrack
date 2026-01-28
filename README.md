@@ -98,7 +98,7 @@ A small **MCU-based trigger controller** can generate deterministic, phase-shift
 ## System Overview
 
 ```
-[ EdgeTrack ] ─► [ CoreFusion ] ─► [ MotionCoder ]
+[ TDMStrobe ] ─► [ EdgeTrack ] ─► [ CoreFusion ] ─► [ MotionCoder ]
 ```
 
 ## Bill of Materials (BOM)
