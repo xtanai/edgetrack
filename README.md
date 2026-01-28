@@ -18,10 +18,11 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 * **RAW-first capture:** **RAW10** preserves linear sensor data and avoids ISP artifacts—often more reliable for reconstruction and calibration.
 * **Deterministic capture:** Synchronized **global-shutter sensors** with TDM strobe phases ensure repeatable timing and geometry.
 * **Low latency:** Edge-side preprocessing and triangulation minimize host-side load and end-to-end delay.
+* **Linux on the edge:** A Linux-based edge stack provides **flexibility, deep configurability, and long-term maintainability** (drivers, networking, deployment, and tooling).
 * **Bandwidth-efficient:** Transmits only **3D keypoints, sparse ROI point clouds, and references** — no raw video streaming.
 * **Scalable:** 2× cameras per device (stereo); combine **3–4 stereo rigs** via LAN.
 * **Marker-optional:** Gloveless by default; **wristbands** improve arm stability; **fingertip markers** enable highest precision.
-* **Optional NPU assist:** Use an optional NPU to improve robustness (e.g., fast left/right disambiguation, consistency checks, and early error detection).
+* **Optional GPU/NPU AI assist:** An optional GPU or NPU can improve robustness (e.g., fast left/right disambiguation, consistency checks, and early error detection).
 * **Optional RGB helper camera:** A center-mounted RGB camera can support setup workflows (visual inspection, text/marker reading, calibration aids) **without being part of the 3D reconstruction path**.
 
 ---
@@ -53,6 +54,8 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 \** EdgeTrack accelerator support depends on the selected edge platform (e.g., optional NPU/GPU modules).
 
 * **Note:** **Phase-offset capture** is a key advantage, enabling **highest-precision authoring** through deterministic, phase-stable timing.
+
+* **Note:** **OptiTrack** determinism is achieved via centralized camera systems and proprietary sync hardware; EdgeTrack provides determinism at the edge via distributed TDM capture.
 
 ---
 
@@ -107,17 +110,6 @@ A small **MCU-based trigger controller** can generate deterministic, phase-shift
 
 ---
 
-## Features
-
-* **RAW10 mono ingest** (global shutter) with NEON/GPU-assisted preprocessing
-* **On-edge processing**: undistortion, normalization, ROI extraction, stereo reconstruction
-* **Metric 3D keypoints** (hands, wrist, fingertips) generated directly on the edge
-* **Sparse ROI point clouds** with embedded **reference features** (AprilTags, wristband, fingertip aids)
-* **Hard/soft sync**: EXPOSE/FLASH input from TDMStrobe; phase-aligned capture
-* **LAN publisher**: zero-copy **UDP / ZeroMQ / TCP** (configurable)
-
----
-
 ## Bill of Materials (BOM)
 
 **Core**
@@ -138,18 +130,6 @@ A small **MCU-based trigger controller** can generate deterministic, phase-shift
 * **TDMStrobe** controller based on RP2040/Pico, providing A/B phases (C/D optional), Source: 👉 [TDMStrobe](https://github.com/xtanai/tdmstrobe)
 * **IR emitters**: prototype 120°; production 60° (throw) + 90° (fill)
 * 2‑wire sync cables from TDMStrobe to camera rig
-
-**Power**
-
-* **Central 24 V PSU** sized for **all rigs + lighting** (strings × current × 1.4)
-* **Buck 24→5.1 V** for each Pi 5 (≥ 5 A, low ripple). Prefer a **shared 24 V bus** to minimize wall‑warts
-* Optional **UPS/hold‑up** for safe shutdown
-
-**Reference & Aids**
-
-* **Two aluminum L‑brackets** (removable) with **AprilTags** on multiple faces
-* **Wristband markers** (optional) for arm pose stability
-* **Fingertip/nail markers** (optional) for peak precision
 
 **Cabling/Hardware**
 
@@ -189,35 +169,9 @@ A small **MCU-based trigger controller** can generate deterministic, phase-shift
 
 ---
 
-## Quick Start
-
-1. Mount the **L‑brackets** with AprilTags; verify coverage from both cameras
-2. Wire **TDMStrobe** (A/B sync) to the stereo rig; set Throw/Fill pulses
-3. Power from the **central 24 V PSU**; feed **5.1 V** to the Pi via buck
-4. Start EdgeTrack; load the rig config; check undistortion/normalization
-5. Verify **histogram 70–80% FS** at target exposure; adjust strobe pulses
-6. Enable **ROI** and (optional) **on‑Pi keypoints**; stream to host
-
----
-
-## Best Practices
-
-* Prefer **60–90° optics** and **baselines ≥ 0.2 m** for Z precision
-* Keep **exposure short**; use strobes for illumination, not shutter time
-* Fix **gain** and **gamma = 1.0** (linear); disable auto-everything
-* Use **NIR band-pass filters** and rigid, thermally stable mounts
-* Calibrate carefully (Charuco + bundle adjustment)
-
----
-
 ## Roadmap
 
-* On‑Pi NEON/GPU kernels for faster undistort/normalize
-* Lightweight on‑Pi detector for ROI without full keypointing
-* **CoreFusion**: multi‑rig calibration tool (AprilTag board solve, BA), per‑rig latency compensation, timebase alignment
-* Configurable ROS/ZeroMQ bridges; log‑ring buffers
-* Calibration helper for L‑brackets (tag layout generator)
-* MotionCoder adapter: joint remapping, confidence gating, state machine hooks
+Coming soon. 
 
 ---
 
