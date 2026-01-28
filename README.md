@@ -98,10 +98,7 @@ A small **MCU-based trigger controller** can generate deterministic, phase-shift
 ## System Overview
 
 ```
-[ TDMStrobe (RP2040) ] ── TRIG A/B ─► [ EdgeTrack ] ── LAN ─► [ CoreFusion (Host PC) ] ──► MotionCoder
-                               │               │                         │
-                       2× MIPI-CSI        3D keypoints,           Multi-stereo fusion,
-                    (global-shutter)   ROI point clouds, refs     calibration, 3D key-pose
+[ EdgeTrack ] ─► [ CoreFusion ] ─► [ MotionCoder ]
 ```
 
 ## Bill of Materials (BOM)
