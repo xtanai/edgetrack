@@ -41,7 +41,7 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 | Phase-offset capture (TDM Module)            |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢       |
 | **Deterministic event layer**                |         🔴         |       🔴     |        🔴        |  **🟢**  |      🔴       |       🔴     |      **🟢**     |
 | **Editor-oriented API**                      |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |      **🟢**     |
-| Open-source core / SDK                       |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🟡     |        🟢       |
+| Open-source core                             |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢       |
 | Edge-side processing (on-device)             |         🟢         |       🟢     |        🟢        |    🔴    |      🔴       |       🟢     |        🟢       |
 | Linux-based edge device (on-board OS)        |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢       |
 | AI On-device accelerator support (NPU/GPU)   |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢**     |
