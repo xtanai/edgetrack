@@ -33,30 +33,26 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 
 | Feature / Focus                              | ZED 2i & RealSense |  Bumblebee® X |   Leap Motion    | OptiTrack | Basler Stereo | Orbbec Gemini |     EdgeTrack    |
 |----------------------------------------------|:------------------:|:-------------:|:----------------:|:---------:|:-------------:|:-------------:|:----------------:|
-| Primary use case                             | Depth sensing / XR | Stereo vision | XR hand tracking | MoCap     | Stereo vision | Depth sensing | Editor authoring |
-| Capture FPS (typical)                        |      Low–Mid       |    Low–Mid    |       High       | Very High |    Low–Mid    |      Mid      |    Very High*    |
-| Stereo / multi-camera                        |     Yes            |      Yes      |       No         |    Yes    |      Yes      |      Yes      |     Yes          |
-| Multi-device fusion (native)                 |        No          |      No       |        No        |    Yes    |      No       |      No       |      Yes         |
-| Phase-offset capture (TDM Module)            |     No          |      No      |     No      |    No     |      No       |      No      |   Yes    |
-| **Deterministic event layer**                |     No          |      No      |   Limited   |  **Yes**  |      No       |      No      | **Yes**  |
-| **Editor-oriented API**                      |     No          |      No      |     No      |    No     |      No       |      No      | **Yes**  |
-| Open-source core / SDK                       |     No       |      No      |     No      |    No     |      No       |   Partial    |   Yes    |
-| Edge-side processing (on-device)             |    Yes         |     Yes      |     Yes     |    No     |      No       |     Yes      |   Yes    |
-| Linux-based edge device (on-board OS)        |     No          |      No      |     No      |    No     |      No       |      No      |   Yes    |
-| AI On-device accelerator support (NPU/GPU)   |     No          |      No      |     No      |    No     |      No       |      No      |   Yes**  |
-| Expandable hardware (add-ons / upgrades)     |     No          |      No      |     No      |    No     |      No       |      No      |   Yes    |
-| Typical interface                            |     USB         |     USB      |    USB      | Ethernet  |  USB / GigE   |     USB      | Ethernet |
-| Typical price range                          |     $$$          |     $$$      |      $      |   $$$$    |      $$$      |     $$       |    $$    |
+| Primary use case                             | Depth sensing / XR | Stereo vision | XR hand tracking |   MoCap   | Stereo vision | Depth sensing | Editor authoring |
+| Capture FPS (typical)                        |       Low–Mid      |    Low–Mid    |       High       | Very High |    Low–Mid    |      Mid      |    Very High*    |
+| Stereo / multi-camera                        |         Yes        |       Yes     |        No        |    Yes    |      Yes      |      Yes      |        Yes       |
+| Multi-device fusion (native)                 |         No         |       No      |        No        |    Yes    |      No       |       No      |        Yes       |
+| Phase-offset capture (TDM Module)            |         No         |       No      |        No        |    No     |      No       |       No      |        Yes       |
+| **Deterministic event layer**                |         No         |       No      |      Limited     |  **Yes**  |      No       |       No      |      **Yes**     |
+| **Editor-oriented API**                      |         No         |       No      |        No        |    No     |      No       |       No      |      **Yes**     |
+| Open-source core / SDK                       |         No         |       No      |        No        |    No     |      No       |    Partial    |        Yes       |
+| Edge-side processing (on-device)             |         Yes        |       Yes     |        Yes       |    No     |      No       |       Yes     |        Yes       |
+| Linux-based edge device (on-board OS)        |         No         |       No      |        No        |    No     |      No       |       No      |        Yes       |
+| AI On-device accelerator support (NPU/GPU)   |         No         |       No      |        No        |    No     |      No       |       No      |        Yes**     |
+| Expandable hardware (add-ons / upgrades)     |         No         |       No      |        No        |    No     |      No       |       No      |        Yes       |
+| Typical interface                            |         USB        |       USB     |        USB       | Ethernet  |  USB / GigE   |      USB      |      Ethernet    |
+| Typical price range                          |         $$$        |       $$$     |        $         |   $$$$    |      $$$      |       $$      |        $$        |
 
-\* Depends on camera selection and edge platform configuration.
+\* Depends on camera selection and edge platform configuration. Effective update rates above 1000 Hz are achieved only via **TDM phase-offset interleaving** across multiple synchronized stereo rigs (a **virtual/effective rate**), not from a single physical camera.
 
 \** EdgeTrack accelerator support depends on the selected edge platform (e.g., optional NPU/GPU modules).
 
-* Note: **“Phase-offset capture”** is a key advantage. It uses time-interleaved
-  capture phases across multiple rigs to improve timing stability and reduce
-  occlusion. After fusion in **CoreFusion**, the system can reach an **effective
-  aggregate update rate** on the order of **~1000 Hz** (configuration-dependent),
-  depending on the number of rigs, per-rig capture FPS, and synchronization settings.
+* **Note:** **Phase-offset capture** is a key advantage, enabling **highest-precision authoring** through deterministic, phase-stable timing.
 
 ---
 
