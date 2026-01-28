@@ -42,7 +42,7 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 | Open-source core / SDK                       |     No       |      No      |     No      |    No     |      No       |   Partial    |   Yes    |
 | Edge-side processing (on-device)             |    Yes         |     Yes      |     Yes     |    No     |      No       |     Yes      |   Yes    |
 | Linux-based edge device (on-board OS)        |     No          |      No      |     No      |    No     |      No       |      No      |   Yes    |
-| On-device accelerator support (NPU/GPU)      |     No          |      No      |     No      |    No     |      No       |      No      |   Yes**  |
+| AI On-device accelerator support (NPU/GPU)   |     No          |      No      |     No      |    No     |      No       |      No      |   Yes**  |
 | Expandable hardware (add-ons / upgrades)     |     No          |      No      |     No      |    No     |      No       |      No      |   Yes    |
 | Typical interface                            |     USB         |     USB      |    USB      | Ethernet  |  USB / GigE   |     USB      | Ethernet |
 | Typical price range                          |     $$$          |     $$$      |      $      |   $$$$    |      $$$      |     $$       |    $$    |
