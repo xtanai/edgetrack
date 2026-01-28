@@ -53,9 +53,9 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 
 \** EdgeTrack accelerator support depends on the selected edge platform (e.g., optional NPU/GPU modules).
 
-* **Note:** **Phase-offset capture** is a key advantage, enabling **highest-precision authoring** through deterministic, phase-stable timing.
+> **Note:** **Phase-offset capture** is a key advantage, enabling **highest-precision authoring** through deterministic, phase-stable timing.
 
-* **Note:** **OptiTrack** determinism is achieved via centralized camera systems and proprietary sync hardware; EdgeTrack provides determinism at the edge via distributed TDM capture.
+> **Note:** **OptiTrack** determinism is achieved via centralized camera systems and proprietary sync hardware; EdgeTrack provides determinism at the edge via distributed TDM capture.
 
 ---
 
