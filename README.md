@@ -95,6 +95,43 @@ A small **MCU-based trigger controller** can generate deterministic, phase-shift
 
 ---
 
+## LiDAR and ToF
+
+LiDAR and Time-of-Flight (ToF) sensors are often considered for 3D perception, but they come with **significant trade-offs** for **high-precision, close-range authoring and interaction workflows**.
+
+**Key limitations in this context:**
+
+* **Limited spatial resolution:**
+  Most ToF and LiDAR systems provide comparatively low angular and spatial resolution, which is insufficient for fine hand, finger, or tool-level detail required in CAD/DCC authoring.
+
+* **Temporal instability and noise:**
+  Depth measurements are affected by multi-path interference, surface reflectivity, and ambient IR, leading to **temporal noise, depth flutter, and jitter**—especially problematic for precise, repeatable input.
+
+* **Poor scalability for multi-view setups:**
+  Scaling LiDAR/ToF to multiple viewpoints is complex and expensive. Mutual interference between active emitters requires careful scheduling or frequency separation, increasing system complexity.
+
+* **Limited deterministic control:**
+  Most ToF/LiDAR modules operate as closed systems with fixed timing, internal ISP pipelines, and limited external synchronization, making **frame-accurate, deterministic multi-sensor fusion difficult**.
+
+* **Integration and cost overhead:**
+  High-quality LiDAR or industrial ToF sensors with acceptable noise characteristics are costly and often require proprietary SDKs, firmware constraints, and non-Linux-friendly tooling.
+
+* **Suboptimal for near-field interaction:**
+  Many LiDAR/ToF sensors are optimized for mid- to long-range sensing. In near-field (hands, tools, desktop-scale workspaces), stereo vision with controlled illumination typically achieves **higher effective precision**.
+
+**EdgeTrack design choice:**
+EdgeTrack deliberately favors **synchronized global-shutter stereo vision with controlled NIR illumination**. This approach provides:
+
+* higher spatial detail at close range
+* deterministic timing via external strobe and phase control
+* better scalability across multiple rigs
+* lower system and integration cost
+* full control over the capture and reconstruction pipeline
+
+For the targeted use cases—**deterministic 3D authoring, precise hand/tool interaction, and reproducible editor workflows**—multi-view stereo with explicit timing control offers a **more accurate, scalable, and transparent foundation** than LiDAR or ToF-based systems.
+
+---
+
 ## System Overview
 
 ```
