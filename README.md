@@ -104,12 +104,6 @@ A small **MCU-based trigger controller** can generate deterministic, phase-shift
                     (global-shutter)   ROI point clouds, refs     calibration, 3D key-pose
 ```
 
-* **Pi 5** ingests **RAW10 mono** from **2× MIPI-CSI** cameras (e.g. OV9281), performs **undistortion, normalization, ROI extraction**, and **stereo triangulation**.
-* **TDMStrobe** provides **A/B (optional C/D)** IR pulses and **2-wire sync** for shutter/LED timing, ensuring stable Z across views.
-* **AprilTag reference boards**: two removable **L-brackets** with tags on multiple faces stabilize **scale, orientation, and re-localization**.
-
----
-
 ## Bill of Materials (BOM)
 
 **Core**
