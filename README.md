@@ -36,16 +36,16 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 |----------------------------------------------|:------------------:|:-------------:|:----------------:|:---------:|:-------------:|:-------------:|:----------------:|
 | Primary use case                             | Depth sensing / XR | Stereo vision | XR hand tracking |   MoCap   | Stereo vision | Depth sensing | Editor authoring |
 | Capture FPS (typical)                        |       Low–Mid      |    Low–Mid    |       High       | Very High |    Low–Mid    |      Mid      |    Very High*    |
-| Stereo / multi-camera                        |         Yes        |       Yes     |        No        |    Yes    |      Yes      |      Yes      |        Yes       |
-| Multi-device fusion (native)                 |         No         |       No      |        No        |    Yes    |      No       |       No      |        Yes       |
-| Phase-offset capture (TDM Module)            |         No         |       No      |        No        |    No     |      No       |       No      |        Yes       |
-| **Deterministic event layer**                |         No         |       No      |      Limited     |  **Yes**  |      No       |       No      |      **Yes**     |
-| **Editor-oriented API**                      |         No         |       No      |        No        |    No     |      No       |       No      |      **Yes**     |
-| Open-source core / SDK                       |         No         |       No      |        No        |    No     |      No       |    Partial    |        Yes       |
-| Edge-side processing (on-device)             |         Yes        |       Yes     |        Yes       |    No     |      No       |       Yes     |        Yes       |
-| Linux-based edge device (on-board OS)        |         No         |       No      |        No        |    No     |      No       |       No      |        Yes       |
-| AI On-device accelerator support (NPU/GPU)   |         No         |       No      |        No        |    No     |      No       |       No      |        Yes**     |
-| Expandable hardware (add-ons / upgrades)     |         No         |       No      |        No        |    No     |      No       |       No      |        Yes       |
+| Stereo / multi-camera                        |         🟢         |       🟢     |        🔴        |    🟢    |      🟢       |       🟢     |        🟢       |
+| Multi-device fusion (native)                 |         🔴         |       🔴     |        🔴        |    🟢    |      🔴       |       🔴     |        🟢       |
+| Phase-offset capture (TDM Module)            |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢       |
+| **Deterministic event layer**                |         🔴         |       🔴     |        🔴        |  **🟢**  |      🔴       |       🔴     |      **🟢**     |
+| **Editor-oriented API**                      |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |      **🟢**     |
+| Open-source core / SDK                       |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🟡     |        🟢       |
+| Edge-side processing (on-device)             |         🟢         |       🟢     |        🟢        |    🔴    |      🔴       |       🟢     |        🟢       |
+| Linux-based edge device (on-board OS)        |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢       |
+| AI On-device accelerator support (NPU/GPU)   |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢**     |
+| Expandable hardware (add-ons / upgrades)     |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢       |
 | Typical interface                            |         USB        |       USB     |        USB       | Ethernet  |  USB / GigE   |      USB      |      Ethernet    |
 | Typical price range                          |         $$$        |       $$$     |        $         |   $$$$    |      $$$      |       $$      |        $$        |
 
