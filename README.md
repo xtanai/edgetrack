@@ -35,7 +35,7 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 | Feature / Focus                              | ZED 2i & RealSense |  Bumblebee® X |   Leap Motion    | OptiTrack | Basler Stereo | Orbbec Gemini |     EdgeTrack    |
 |----------------------------------------------|:------------------:|:-------------:|:----------------:|:---------:|:-------------:|:-------------:|:----------------:|
 | Primary use case                             | Depth sensing / XR | Stereo vision | XR hand tracking |   MoCap   | Stereo vision | Depth sensing | Editor authoring |
-| Capture FPS (typical)                        |       Low–Mid      |    Low–Mid    |       High       | Very High |    Low–Mid    |      Mid      |    Very High*    |
+| Capture FPS (typical)                        |         Mid        |      Mid      |       High       | Very High |      Low      |      Mid      |    Very High*    |
 | Stereo / multi-camera                        |         🟢         |       🟢     |        🔴        |    🟢    |      🟢       |       🟢     |        🟢       |
 | Multi-device fusion (native)                 |         🔴         |       🔴     |        🔴        |    🟢    |      🔴       |       🔴     |        🟢       |
 | Phase-offset capture (TDM Module)            |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢       |
