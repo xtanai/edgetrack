@@ -79,21 +79,21 @@ In practice, USB is convenient for simple setups, Ethernet offers the most contr
 
 ### Problem
 
-Native **MIPI CSI** camera interfaces offer excellent bandwidth, low latency, and precise timing, but they suffer from a major limitation: **very short cable lengths**, which makes larger or distributed setups impractical.
+Native **MIPI CSI** camera interfaces offer excellent bandwidth, low latency, and precise timing, but they suffer from a major limitation: **very short cable lengths**, which makes larger or distributed camera setups impractical.
 
-**USB-based** camera solutions allow longer cables, but USB is **interrupt-driven and host-dependent**, which typically results in **higher latency, more jitter, and less deterministic timing**—especially problematic for synchronized multi-camera systems.
+**USB-based** camera solutions allow longer cables, but USB is **interrupt-driven and host-dependent**, which typically results in **higher latency, increased jitter, and less deterministic timing**—especially problematic for tightly synchronized multi-camera systems.
 
-**Ethernet/LAN-based** cameras improve distance and deployment flexibility, but many implementations still rely on **OS-level interrupts, buffering, and packet scheduling**, which are not inherently optimized for **hard real-time capture** or frame-accurate multi-camera synchronization. In practice, achieving truly deterministic behavior often requires a **real-time–tuned OS/network stack** and careful system-level optimization.
+**Ethernet/LAN-based** cameras improve distance and deployment flexibility, but many implementations still rely on **OS-level interrupts, buffering, and packet scheduling**, which are not inherently optimized for **hard real-time capture** or frame-accurate multi-camera synchronization. In practice, achieving truly deterministic behavior often requires a **real-time–tuned OS and network stack**, along with careful system-level optimization.
 
 In addition, purpose-built **GigE / 2.5GigE machine-vision cameras** remain relatively expensive—often **€500+ per unit**—which makes large multi-camera arrays **cost-heavy** and limits scalability from a hardware-budget perspective.
 
-At the high end, **CoaXPress** can deliver outstanding performance with direct, low-latency data paths into CPU/GPU. However, it comes with **very expensive hardware**, requires dedicated **frame grabbers**, and scales poorly in practice. Beyond the capture hardware itself, processing **4+ cameras** can place a substantial load on a single host CPU—often pushing systems toward high-end workstations (e.g., Threadripper-class machines) and significant engineering effort to optimize the pipeline.
+At the high end, **CoaXPress** can deliver outstanding performance with direct, low-latency data paths into CPU/GPU memory. However, it comes with **very high hardware cost**, requires dedicated **frame grabbers**, and scales poorly **in terms of system cost and integration complexity**. Beyond the capture hardware itself, processing **multiple high-resolution cameras on a single host** can place a substantial load on the CPU/GPU—often pushing systems toward high-end workstation-class hardware (e.g., Threadripper-class systems) and significant engineering effort to optimize the processing pipeline.
 
 ### Solution
 
-EdgeTrack separates **image capture** from **high-level processing** by moving **reconstruction and preprocessing directly to the edge**. Instead of concentrating the entire workload on one expensive host CPU, each edge device handles its **local reconstruction tasks** using native MIPI CSI—where it performs best—and exports only **processed, compact 3D data** (e.g., keypoints, tool poses, sparse geometry) over the network.
+EdgeTrack separates **image capture** from **high-level processing** by moving **reconstruction and preprocessing directly to the edge**. Instead of concentrating the entire workload on a single, expensive host system, each edge device performs its **local reconstruction tasks** using native MIPI CSI—where it performs best—and exports only **processed, compact 3D data** (e.g., keypoints, tool poses, sparse geometry) over the network.
 
-This approach preserves the **timing fidelity** and signal quality of native CSI capture while remaining **cost-efficient, scalable, and deployment-friendly**.
+This architecture preserves the **timing fidelity and signal quality** of native CSI capture while remaining **cost-efficient, scalable, and deployment-friendly**.
 
 ---
 
@@ -154,8 +154,6 @@ External, camera-based tracking can enable **affordable VR** while still deliver
 * **Better repeatability:** stable timing + fixed geometry yields consistent pose over time.
 * **Scales to multi-device setups:** multiple tracked objects can coexist in the same capture volume.
 
----
-
 ### High-speed 3D scanning
 
 Scan quality depends strongly on **camera resolution, optics, baseline, calibration, and working distance**. Using **low-cost 1 MP sensors (1280×800)** with a **stereo baseline of ~160 mm** at a **working distance of ~300 mm** in a **multi-view ring setup**, the system can reliably achieve **~0.1 mm precision**, with **~0.05 mm achievable under favorable conditions** (high-quality calibration, good surface texture, stable mechanics). Higher local precision (down to **~0.02 mm**) is possible only in constrained scenarios and at reduced speed.
@@ -169,8 +167,6 @@ The key advantage is **speed and robustness**: **120 FPS** with **4–6 stereo v
 * **Predictable performance:** calibrated stereo geometry produces stable, reproducible depth.
 * **Cost-efficient scaling:** adding views improves robustness without requiring high-end machine-vision cameras.
 
----
-
 ### Precision tool & fixture tracking (Industrial / CNC / Robotics)
 
 External multi-view tracking can be used to **track tools, fixtures, and end-effectors** with high positional stability. With stereo baselines and calibrated geometry, the system enables **repeatable sub-millimeter pose tracking** for tasks such as **tool alignment, fixture verification, robot teaching, or calibration**—without relying on expensive encoders or integrating vision hardware inside the machine.
@@ -182,8 +178,6 @@ External multi-view tracking can be used to **track tools, fixtures, and end-eff
 * **No inertial drift:** absolute pose tracking instead of integrated IMU motion.
 * **LAN-scalable:** expand to multiple stations or rigs with standard network infrastructure.
 
----
-
 ### Motion capture for hands, tools, and props (non-entertainment)
 
 The system can capture **hand, finger, and tool motion** at **high frame rates** for **analysis, training, and validation**—not cinematic animation. Compared to inertial systems, optical multi-view capture provides **absolute positioning**, **no drift**, and **better repeatability**, which is valuable for **ergonomics studies, usability testing, and skill analysis**.
@@ -194,8 +188,6 @@ The system can capture **hand, finger, and tool motion** at **high frame rates**
 * **Repeatable sessions:** consistent geometry enables before/after comparisons and long-term studies.
 * **Marker-optional workflow:** markerless by default, with optional minimal markers for hard cases.
 * **Multi-object capture:** hands + tools + props in one coordinated reference frame.
-
----
 
 ### Metrology-light & quality inspection (near-line / in-process)
 
