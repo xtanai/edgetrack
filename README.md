@@ -99,24 +99,24 @@ This architecture preserves the **timing fidelity and signal quality** of native
 
 ## 2. Innovative Concept: Replacing CoaXPress
 
-A camera infrastructure based on **CoaXPress** is technically ideal in terms of **bandwidth and timing precision**, but it is **cost-intensive** and requires substantial **integration effort**, including dedicated **frame grabbers** and complex host-side pipelines.
+A **CoaXPress-based** camera infrastructure is a high-end solution in terms of **bandwidth and timing precision**, but it is **cost-intensive** and requires substantial **integration effort**, including dedicated **frame grabbers** and complex host-side pipelines.
 
-Instead, similar practical precision can be achieved through a combination of:
+Instead, comparable practical precision **for the target outputs** can be achieved through a combination of:
 
-* **Well-defined multi-view geometry**
-* **Calibrated stereo triangulation**
-* **Edge-side preprocessing**
-* **Early fusion in CoreFusion**
+- **Well-defined multi-view geometry**
+- **Calibrated stereo triangulation**
+- **Edge-side preprocessing**
+- **Early fusion in CoreFusion**
 
-By transmitting **stable 3D primitives** (keypoints, tool poses, sparse geometry) rather than raw video streams, the system delivers **reproducible, low-jitter signals** at a fraction of the system complexity.
+By transmitting **stable 3D primitives** (e.g., keypoints, tool poses, sparse geometry) rather than raw video streams, the system delivers **reproducible, low-jitter 3D signals** with significantly lower bandwidth requirements and reduced host-side complexity.
 
-For the intended application, this architecture approaches the **result quality of CoaXPress-based setups**, while offering:
+For the intended application, this architecture can **approach CoaXPress-class results** for **pose/keypoint accuracy and temporal stability**, while offering:
 
-* **Simpler integration**
-* **Lower hardware and maintenance costs**
-* **Much better scalability**
+- **Simpler integration**
+- **Lower hardware and maintenance costs**
+- **Much better scalability**
 
-Additional rigs can be added via **standard LAN connections**, instead of consuming limited frame-grabber channels.
+Additional rigs can be added via **standard LAN connections**, rather than consuming limited frame-grabber channels and centralized capture resources.
 
 ---
 
