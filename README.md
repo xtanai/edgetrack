@@ -139,6 +139,20 @@ Examples include subtle fingertip markers or markers placed directly on a tool. 
 A small **MCU-based trigger controller** generates deterministic, phase-shifted triggers for **up to eight stereo rigs** at **120 FPS per rig**.
 When fused in **CoreFusion**, this results in an **effective aggregate update rate of up to ~960 Hz**, while maintaining **low jitter and high temporal stability**, depending on configuration and synchronization.
 
+
+### Why TDM Is Not Distributed Over LAN
+
+You’re right that a dedicated MCU (e.g., RP2040) is **not strictly required**—on a Pi 5, TDM trigger signals can be generated locally using hardware timers / DMA with sufficient precision for 120 FPS.
+
+The important distinction is **where the trigger is generated**:
+
+* **Ethernet/LAN is excellent for data transport** (payload streaming, timestamps, control messages).
+* But it is **not ideal as a real-time trigger bus**, because packet delivery depends on **OS scheduling, buffering, interrupts, NIC behavior, and switch latency**, which introduces **variable jitter**.
+
+Therefore, EdgeTrack uses **LAN for payload and timestamps**, while **TDM phase triggering is generated locally on each edge device** (Pi-side or MCU-side). If multiple edge devices must share a common phase reference, synchronization can be achieved via a **deterministic wired sync bus** (e.g., **RS-485**) or a **shared time base** (e.g., scheduled start times / clock sync), rather than sending per-frame triggers over the network.
+
+> In short: **LAN transports data; the edge generates timing.**
+
 ---
 
 ## Use Cases Outside MotionCoder
@@ -244,21 +258,6 @@ For the targeted use cases—**deterministic 3D authoring, precise hand/tool int
 ```
 [ TDMStrobe ] ─► [ EdgeTrack ] ─► [ CoreFusion ] ─► [ MotionCoder ]
 ```
-
----
-
-## Why TDM Is Not Distributed Over LAN
-
-You’re right that a dedicated MCU (e.g., RP2040) is **not strictly required**—on a Pi 5, TDM trigger signals can be generated locally using hardware timers / DMA with sufficient precision for 120 FPS.
-
-The important distinction is **where the trigger is generated**:
-
-* **Ethernet/LAN is excellent for data transport** (payload streaming, timestamps, control messages).
-* But it is **not ideal as a real-time trigger bus**, because packet delivery depends on **OS scheduling, buffering, interrupts, NIC behavior, and switch latency**, which introduces **variable jitter**.
-
-Therefore, EdgeTrack uses **LAN for payload and timestamps**, while **TDM phase triggering is generated locally on each edge device** (Pi-side or MCU-side). If multiple edge devices must share a common phase reference, synchronization can be achieved via a **deterministic wired sync bus** (e.g., **RS-485**) or a **shared time base** (e.g., scheduled start times / clock sync), rather than sending per-frame triggers over the network.
-
-> In short: **LAN transports data; the edge generates timing.**
 
 ---
 
