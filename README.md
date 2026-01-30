@@ -83,9 +83,11 @@ Native **MIPI CSI** camera interfaces offer excellent bandwidth, low latency, an
 
 **USB-based** camera solutions allow longer cables, but USB is **interrupt-driven and host-dependent**, which typically results in **higher latency, more jitter, and less deterministic timing**—especially problematic for synchronized multi-camera systems.
 
-**Ethernet/LAN-based** cameras improve distance and scalability, but typical implementations still depend on **OS-level interrupts, buffering, and packet scheduling**, which are not optimized for **hard real-time capture** and precise multi-camera synchronization.
+**Ethernet/LAN-based** cameras improve distance and deployment flexibility, but many implementations still rely on **OS-level interrupts, buffering, and packet scheduling**, which are not inherently optimized for **hard real-time capture** or frame-accurate multi-camera synchronization. In practice, achieving truly deterministic behavior often requires a **real-time–tuned OS/network stack** and careful system-level optimization.
 
-At the high end, **CoaXPress** can deliver outstanding performance with direct, low-latency data paths into CPU/GPU. However, it comes with **very expensive hardware**, requires dedicated **frame grabbers**, and scales poorly in practice. Beyond the capture hardware itself, processing **5–6+ cameras** can place a substantial load on a single host CPU—often pushing systems toward high-end workstations (e.g., Threadripper-class machines) and significant engineering effort to optimize the pipeline.
+In addition, purpose-built **GigE / 2.5GigE machine-vision cameras** remain relatively expensive—often **€500+ per unit**—which makes large multi-camera arrays **cost-heavy** and limits scalability from a hardware-budget perspective.
+
+At the high end, **CoaXPress** can deliver outstanding performance with direct, low-latency data paths into CPU/GPU. However, it comes with **very expensive hardware**, requires dedicated **frame grabbers**, and scales poorly in practice. Beyond the capture hardware itself, processing **4+ cameras** can place a substantial load on a single host CPU—often pushing systems toward high-end workstations (e.g., Threadripper-class machines) and significant engineering effort to optimize the pipeline.
 
 ### Solution
 
