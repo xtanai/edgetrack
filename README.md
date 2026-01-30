@@ -338,14 +338,6 @@ Coming soon.
 * **Option D – Side-shield eyewear (“horse blinkers” idea):**
   Provide **IR-blocking safety glasses with side shields** for operators/visitors when emitters face forward. Choose eyewear rated for **near-IR attenuation** and ensure a snug fit to block off-axis light.
 
-**Note:** 
-
-For high-precision CAD/DCC workflows, multi-view NIR systems with global-shutter
-cameras and synchronized strobes provide strong advantages in accuracy, timing
-stability, and drift resistance. EdgeTrack is designed specifically for these
-requirements and targets deterministic authoring and interaction use cases rather
-than general-purpose consumer hand-tracking or inside-out XR solutions.
-
 ### Disclaimer
 
 Prototype hardware. Use at your own risk. Ensure eye‑safety and proper thermal design in all setups.
