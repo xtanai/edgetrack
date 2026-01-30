@@ -263,12 +263,6 @@ For the targeted use cases—**deterministic 3D authoring, precise hand/tool int
 **Lighting / Sync**
 
 * **TDMStrobe** controller based on RP2040/Pico, providing A/B phases (C/D optional), Source: 👉 [TDMStrobe](https://github.com/xtanai/tdmstrobe)
-* **IR emitters**: prototype 120°; production 60° (throw) + 90° (fill)
-* 2‑wire sync cables from TDMStrobe to camera rig
-
-**Cabling/Hardware**
-
-* Short MIPI cables, quality LAN (Cat6), strain relief, black matte baffles
 
 ---
 
