@@ -168,6 +168,8 @@ External, camera-based tracking can enable **affordable VR** while still deliver
 * **Better repeatability:** stable timing + fixed geometry yields consistent pose over time.
 * **Scales to multi-device setups:** multiple tracked objects can coexist in the same capture volume.
 
+> **Note:** The headset may not need onboard XR cameras either—if the experience is driven by a **synthetic XR scene** (e.g., rendering from a tracked **ROI point cloud / proxy geometry**) rather than real-world passthrough video. Source: 👉 [HMDone](https://github.com/xtanai/hmdone)
+
 ### High-speed 3D scanning
 
 Scan quality depends strongly on **camera resolution, optics, baseline, calibration, and working distance**. Using **low-cost 1 MP sensors (1280×800)** with a **stereo baseline of ~160 mm** at a **working distance of ~300 mm** in a **multi-view ring setup**, the system can reliably achieve **~0.1 mm precision**, with **~0.05 mm achievable under favorable conditions** (high-quality calibration, good surface texture, stable mechanics). Higher local precision (down to **~0.02 mm**) is possible only in constrained scenarios and at reduced speed.
