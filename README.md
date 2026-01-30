@@ -75,23 +75,67 @@ In practice, USB is convenient for simple setups, Ethernet offers the most contr
 
 ---
 
-## Concept: Replacing CoaXPress
+## 1. Innovative Separation of Capture and Processing
 
-A camera infrastructure based on **CoaXPress** would be technically ideal in terms of bandwidth and timing precision, but it is **cost-intensive** and requires significant **integration effort**, including dedicated **frame grabbers** and complex host-side setups.
+### Problem
 
-Instead, comparable precision gains can be achieved through a **carefully specified multi-view geometry** combined with **edge-side preprocessing**. Using **calibrated stereo triangulation** and **early fusion** in **CoreFusion**, the system produces **stable, reproducible 3D signals** with a substantially lower system and integration cost.
+Native **MIPI CSI** camera interfaces offer excellent bandwidth, low latency, and precise timing, but they suffer from a major limitation: **very short cable lengths**, which makes larger or distributed setups impractical.
 
-For the intended application, this approach reaches result quality that is close to CoaXPress-based setups, while offering **simpler integration**, **lower hardware complexity**, and **significantly better cost-efficient scalability**—enabling additional rigs to be added over standard LAN connections rather than requiring extra frame-grabber channels.
+**USB-based** camera solutions allow longer cables, but USB is **interrupt-driven and host-dependent**, which typically results in **higher latency, more jitter, and less deterministic timing**—especially problematic for synchronized multi-camera systems.
+
+**Ethernet/LAN-based** cameras improve distance and scalability, but typical implementations still depend on **OS-level interrupts, buffering, and packet scheduling**, which are not optimized for **hard real-time capture** and precise multi-camera synchronization.
+
+At the high end, **CoaXPress** can deliver outstanding performance with direct, low-latency data paths into CPU/GPU. However, it comes with **very expensive hardware**, requires dedicated **frame grabbers**, and scales poorly in practice. Beyond the capture hardware itself, processing **5–6+ cameras** can place a substantial load on a single host CPU—often pushing systems toward high-end workstations (e.g., Threadripper-class machines) and significant engineering effort to optimize the pipeline.
+
+### Solution
+
+EdgeTrack separates **image capture** from **high-level processing** by moving **reconstruction and preprocessing directly to the edge**. Instead of concentrating the entire workload on one expensive host CPU, each edge device handles its **local reconstruction tasks** using native MIPI CSI—where it performs best—and exports only **processed, compact 3D data** (e.g., keypoints, tool poses, sparse geometry) over the network.
+
+This approach preserves the **timing fidelity** and signal quality of native CSI capture while remaining **cost-efficient, scalable, and deployment-friendly**.
 
 ---
 
-## Innovative TDM (Time-Division Multiplexing)
+## 2. Innovative Concept: Replacing CoaXPress
 
-EdgeTrack uses **phase-offset global-shutter capture (TDM)**, where multiple stereo rigs are triggered in **time-interleaved phases** rather than exposing all views simultaneously. This approach can **reduce occlusion** and improve **timing consistency**, which is especially valuable in **close-range, tool-centric workflows** where stable, repeatable input matters.
+A camera infrastructure based on **CoaXPress** is technically ideal in terms of **bandwidth and timing precision**, but it is **cost-intensive** and requires substantial **integration effort**, including dedicated **frame grabbers** and complex host-side pipelines.
 
-EdgeTrack is designed to work **markerless by default**, but it also supports optional **small, purpose-specific markers** when additional robustness is needed. For example, subtle fingertip markers or markers placed directly on a tool can stabilize tracking in demanding scenarios. A “3D pencil” in VR, assisted by two small markers, can enable highly precise pen-like input—useful for natural writing gestures or reliable virtual keyboard interaction.
+Instead, similar practical precision can be achieved through a combination of:
 
-A small **MCU-based trigger controller** can generate deterministic, phase-shifted triggers for **up to eight stereo rigs** at **120 FPS per rig**. When these streams are fused in **CoreFusion**, the system can reach an **effective aggregate update rate** of up to roughly **~960 Hz** across all rigs, while maintaining high temporal stability (low jitter), depending on configuration and synchronization settings.
+* **Well-defined multi-view geometry**
+* **Calibrated stereo triangulation**
+* **Edge-side preprocessing**
+* **Early fusion in CoreFusion**
+
+By transmitting **stable 3D primitives** (keypoints, tool poses, sparse geometry) rather than raw video streams, the system delivers **reproducible, low-jitter signals** at a fraction of the system complexity.
+
+For the intended application, this architecture approaches the **result quality of CoaXPress-based setups**, while offering:
+
+* **Simpler integration**
+* **Lower hardware and maintenance costs**
+* **Much better scalability**
+
+Additional rigs can be added via **standard LAN connections**, instead of consuming limited frame-grabber channels.
+
+---
+
+## 3. Innovative TDM (Time-Division Multiplexing)
+
+EdgeTrack uses **phase-offset global-shutter capture via Time-Division Multiplexing (TDM)**.
+Instead of exposing all cameras simultaneously, multiple stereo rigs are triggered in **time-interleaved phases**.
+
+This design:
+
+* **Reduces occlusion**
+* Improves **temporal consistency**
+* Enables more **stable, repeatable input**
+
+—especially important in **close-range, tool-centric workflows** where precision matters more than visual realism.
+
+EdgeTrack is **markerless by default**, but supports **optional, minimal markers** when additional robustness is required.
+Examples include subtle fingertip markers or markers placed directly on a tool. A “3D pencil” assisted by two small markers can provide **pen-like precision**, enabling reliable writing gestures or even **virtual keyboard interaction**.
+
+A small **MCU-based trigger controller** generates deterministic, phase-shifted triggers for **up to eight stereo rigs** at **120 FPS per rig**.
+When fused in **CoreFusion**, this results in an **effective aggregate update rate of up to ~960 Hz**, while maintaining **low jitter and high temporal stability**, depending on configuration and synchronization.
 
 ---
 
