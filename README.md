@@ -14,7 +14,7 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 
 ## Why EdgeTrack?
 
-* **True 3D at the edge:** Stereo reconstruction runs on-device, producing **metric 3D keypoints** instead of raw images or 2D detections.
+* **True 3D at the edge:** Stereo reconstruction runs directly on-device, producing **metric 3D keypoints** instead of raw images or 2D detections — **no heuristic inside-out estimation** and **no approximate reconstruction**.
 * **RAW-first capture:** **RAW10** preserves linear sensor data and avoids ISP artifacts—often more reliable for reconstruction and calibration.
 * **Deterministic capture:** Synchronized **global-shutter sensors** with TDM strobe phases ensure repeatable timing and geometry.
 * **Low latency:** Edge-side preprocessing and triangulation minimize host-side load and end-to-end delay.
