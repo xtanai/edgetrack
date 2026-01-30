@@ -141,6 +141,75 @@ When fused in **CoreFusion**, this results in an **effective aggregate update ra
 
 ---
 
+## Use Cases Outside MotionCoder
+
+### Low-cost VR tracking (without an IMU in the headset)
+
+External, camera-based tracking can enable **affordable VR** while still delivering **high positional quality**, because pose estimation is computed **outside the headset** using a deterministic multi-view setup. This avoids IMU drift and reduces BOM cost and complexity on the headset side.
+
+**Why this matters**
+
+* **No IMU drift:** optical tracking provides absolute position, not integrated motion that accumulates error.
+* **Cheaper headset hardware:** fewer sensors and less calibration on the headset.
+* **Better repeatability:** stable timing + fixed geometry yields consistent pose over time.
+* **Scales to multi-device setups:** multiple tracked objects can coexist in the same capture volume.
+
+---
+
+### High-speed 3D scanning
+
+Scan quality depends strongly on **camera resolution, optics, baseline, calibration, and working distance**. Using **low-cost 1 MP sensors (1280×800)** with a **stereo baseline of ~160 mm** at a **working distance of ~300 mm** in a **multi-view ring setup**, the system can reliably achieve **~0.1 mm precision**, with **~0.05 mm achievable under favorable conditions** (high-quality calibration, good surface texture, stable mechanics). Higher local precision (down to **~0.02 mm**) is possible only in constrained scenarios and at reduced speed.
+
+The key advantage is **speed and robustness**: **120 FPS** with **4–6 stereo views at ~60° FOV** enables fast, stable reconstruction with low occlusion and high repeatability.
+
+**Why this matters**
+
+* **High throughput:** dense temporal sampling helps capture motion and reduces the need for slow “stop-and-scan”.
+* **Multi-view robustness:** multiple angles reduce occlusion and improve coverage around edges and cavities.
+* **Predictable performance:** calibrated stereo geometry produces stable, reproducible depth.
+* **Cost-efficient scaling:** adding views improves robustness without requiring high-end machine-vision cameras.
+
+---
+
+### Precision tool & fixture tracking (Industrial / CNC / Robotics)
+
+External multi-view tracking can be used to **track tools, fixtures, and end-effectors** with high positional stability. With stereo baselines and calibrated geometry, the system enables **repeatable sub-millimeter pose tracking** for tasks such as **tool alignment, fixture verification, robot teaching, or calibration**—without relying on expensive encoders or integrating vision hardware inside the machine.
+
+**Why this matters**
+
+* **Deterministic geometry:** stable pose from calibration rather than inference-only tracking.
+* **Multi-view reliability:** fewer dropouts and better robustness in cluttered workspaces.
+* **No inertial drift:** absolute pose tracking instead of integrated IMU motion.
+* **LAN-scalable:** expand to multiple stations or rigs with standard network infrastructure.
+
+---
+
+### Motion capture for hands, tools, and props (non-entertainment)
+
+The system can capture **hand, finger, and tool motion** at **high frame rates** for **analysis, training, and validation**—not cinematic animation. Compared to inertial systems, optical multi-view capture provides **absolute positioning**, **no drift**, and **better repeatability**, which is valuable for **ergonomics studies, usability testing, and skill analysis**.
+
+**Why this matters**
+
+* **High FPS = better dynamics:** fast motions become measurable and comparable.
+* **Repeatable sessions:** consistent geometry enables before/after comparisons and long-term studies.
+* **Marker-optional workflow:** markerless by default, with optional minimal markers for hard cases.
+* **Multi-object capture:** hands + tools + props in one coordinated reference frame.
+
+---
+
+### Metrology-light & quality inspection (near-line / in-process)
+
+For parts that do not require full CMM accuracy, the setup can serve as a **fast, contactless inspection tool**. It enables **shape comparison, deviation visualization, and presence checks** at **~0.1 mm precision**, suitable for **near-line quality control**, **prototype validation**, or **process monitoring**—with much higher throughput than traditional scanning methods.
+
+**Why this matters**
+
+* **Fast feedback loops:** detect gross deviations early without interrupting production for long.
+* **Sufficient precision for many checks:** ideal for “go/no-go”, fit checks, and deformation monitoring.
+* **Scalable layouts:** add viewpoints where needed (edges, cavities, reflective regions).
+* **Low per-sensor cost:** multi-view coverage without premium metrology camera pricing.
+
+---
+
 ## LiDAR and ToF
 
 LiDAR and Time-of-Flight (ToF) sensors are often considered for 3D perception, but they come with **significant trade-offs** for **high-precision, close-range authoring and interaction workflows**.
