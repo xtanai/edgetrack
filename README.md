@@ -47,13 +47,13 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 | AI On-device accelerator support (NPU/GPU)   |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢**     |
 | Expandable hardware (add-ons / upgrades)     |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢       |
 | Typical interface                            |         USB        |       USB     |        USB       | Ethernet  |  USB / GigE   |      USB      |      Ethernet    |
-| Typical price range                          |         $$$$       |       $$$$    |        $$        |   $$$$$   |      $$$$     |       $$$     |         $***     |
+| Typical price range                          |         $$$$       |       $$$$    |        $$        |   $$$$$   |      $$$$     |       $$$     |         $ (⚠️)  |
 
 \* Depends on camera selection and edge platform configuration. Effective update rates above 1000 Hz are achieved only via **TDM phase-offset interleaving** across multiple synchronized stereo rigs (a **virtual/effective rate**), not from a single physical camera.
 
 \** EdgeTrack accelerator support depends on the selected edge platform (e.g., optional NPU/GPU modules).
 
-\*** Mass production only. As an interim solution, off-the-shelf hardware (e.g. Raspberry Pi 5) and selected self-built components may be used to reduce costs.
+⚠️ Mass production only. As an interim solution, off-the-shelf hardware (e.g. Raspberry Pi 5) and selected self-built components may be used to reduce costs.
 
 > **Note:** **Phase-offset capture** is a key advantage, enabling **highest-precision authoring** through deterministic, phase-stable timing.
 
