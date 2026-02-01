@@ -47,11 +47,13 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 | AI On-device accelerator support (NPU/GPU)   |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢**     |
 | Expandable hardware (add-ons / upgrades)     |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢       |
 | Typical interface                            |         USB        |       USB     |        USB       | Ethernet  |  USB / GigE   |      USB      |      Ethernet    |
-| Typical price range                          |         $$$        |       $$$     |        $         |   $$$$    |      $$$      |       $$      |         $        |
+| Typical price range                          |         $$$$       |       $$$$    |        $$        |   $$$$$   |      $$$$     |       $$$     |         $***     |
 
 \* Depends on camera selection and edge platform configuration. Effective update rates above 1000 Hz are achieved only via **TDM phase-offset interleaving** across multiple synchronized stereo rigs (a **virtual/effective rate**), not from a single physical camera.
 
 \** EdgeTrack accelerator support depends on the selected edge platform (e.g., optional NPU/GPU modules).
+
+\*** Mass production only. As an interim solution, off-the-shelf hardware (e.g. Raspberry Pi 5) and selected self-built components may be used to reduce costs.
 
 > **Note:** **Phase-offset capture** is a key advantage, enabling **highest-precision authoring** through deterministic, phase-stable timing.
 
@@ -321,25 +323,33 @@ Coming soon.
 
 ## Safety
 
-* **850 nm IR is invisible and hazardous**—follow **IEC 62471** guidelines.
-* **Never look into emitters.** Use black matte **baffles/shields**, aim emitters away from faces, and add **interlocks** (LEDs off on loss of sync / open cover / presence detection).
-* Keep **exposure short** (strobe pulses inside the camera exposure) and the **average power low**.
-* Use **850 nm band-pass filters** on cameras to reduce required LED power.
+### NIR Illumination (850 nm vs 940 nm) & Eye Safety
 
-**Solution Strategies:**
+* **Never look into emitters.** Use black matte **baffles/shields**, aim emitters away from faces, and add **hardware interlocks** (LEDs off on loss of sync, open covers, or presence detection).
+* Keep **exposure short** (strobe pulses strictly within camera exposure) and **average irradiance low**.
+* Prefer **850 nm band-pass filters** on cameras to reduce the required LED output power.
+* **850 nm and 940 nm are both IR-A** and are **not inherently eye-safe**; safety depends on irradiance, geometry, duty cycle, distance, and exposure time (IEC 62471).
 
-* **Option A – Side/Rear placement (recommended):**
-  Mount stereo pairs **left/right and slightly behind** the workspace, aimed toward the monitor/work area. Add **one or two top stereo pairs** for occlusion-free coverage. This directs IR **away from eyes** while keeping the scene well lit. Future refinement: integrate cameras cleanly by recess-mounting one pair near the center of the table and another near the back edge for a slimmer, more robust design.
+### Solution Strategies
 
-* **Option B – Front placement with HMD:**
-  If all stereo pairs must face forward, operate with a **closed VR headset** (no see-through optics) so eyes are **occluded**. Still use baffles and interlocks to protect bystanders without headsets.
+**Option A — Prefer more viewpoints over more power (recommended for 940 nm)**
+- If **940 nm illumination** is preferred (reduced visible glow), the recommended approach is to **increase the number of stereo rigs (viewpoints)** to maintain SNR while keeping **irradiance low**, rather than compensating with higher-power NIR emitters.
 
-* **Option C – IR-filtering safety glasses:**
-  Use **visible-light-transmitting eyewear** that strongly attenuates **near-IR (≈ 780–950 nm)** (e.g., specified optical density at **850 nm**), so users retain normal vision while IR exposure is reduced.
+**Option B — Side / rear placement (recommended)**
+- Mount stereo pairs **left/right and slightly behind** the workspace, aimed toward the work area. Add **one or two top stereo pairs** for occlusion-free coverage. This directs NIR **away from the eyes** while maintaining uniform scene illumination.
+Future refinement: recess-mount one stereo pair near the table center and another near the back edge for a slimmer, more robust setup.
 
-* **Option D – Side-shield eyewear (“horse blinkers” idea):**
-  Provide **IR-blocking safety glasses with side shields** for operators/visitors when emitters face forward. Choose eyewear rated for **near-IR attenuation** and ensure a snug fit to block off-axis light.
+**Option C — Front placement with HMD only**
+- If stereo pairs must face forward, operate with a **closed VR headset** (no see-through optics) so the user’s eyes are **occluded**. Baffles and interlocks are still required to protect bystanders.
 
-### Disclaimer
+**Option D — IR-filtering safety eyewear**
+- Use **visible-light-transmitting eyewear** that strongly attenuates **near-IR (≈ 780–950 nm)** (specified optical density at **850 nm / 940 nm**) so users retain normal vision while IR exposure is reduced.
+
+**Option E — Side-shield eyewear (“horse-blinkers” concept)**
+- Provide **IR-blocking safety glasses with side shields** for operators and visitors when emitters face forward. Ensure proper **near-IR attenuation ratings** and a snug fit to block off-axis radiation. and ensure a snug fit to block off-axis light.
+
+---
+
+## Disclaimer
 
 Prototype hardware. Use at your own risk. Ensure eye‑safety and proper thermal design in all setups.
