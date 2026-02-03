@@ -37,6 +37,7 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 | Primary use case                             | Depth sensing / XR | Stereo vision | XR hand tracking |   MoCap   | Stereo vision | Depth sensing | Editor authoring |
 | Capture FPS (typical)                        |         Mid        |      Mid      |       High       | Very High |      Low      |      Mid      |    Very High*    |
 | Stereo / multi-camera                        |         🟢         |       🟢     |        🔴        |    🟢    |      🟢       |       🟢     |        🟢       |
+| RAW10 or RAW12                               |         🔴         |       🟢     |        🔴        |    🟡    |      🟢       |       🔴     |        🟢       |
 | Multi-device fusion (native)                 |         🔴         |       🔴     |        🔴        |    🟢    |      🔴       |       🔴     |        🟢       |
 | Phase-offset capture (TDM Module)            |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢       |
 | **Deterministic event layer**                |         🔴         |       🔴     |        🔴        |  **🟢**  |      🔴       |       🔴     |      **🟢**     |
@@ -57,9 +58,21 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 
 > **Note:** **Phase-offset capture** is a key advantage, enabling **highest-precision authoring** through deterministic, phase-stable timing.
 
-> **Note:** **OptiTrack** determinism is achieved via centralized camera systems and proprietary sync hardware; EdgeTrack provides determinism at the edge via distributed TDM capture.
-
 > **Note:** **Leap Motion** uses a dual-camera hardware setup; however, the system does not expose or process stereo data as a general-purpose stereo vision pipeline.
+
+> **Note:** **OptiTrack** achieves determinism through a **centralized camera array** and **proprietary synchronization hardware**. While OptiTrack offers a **“raw grayscale”** video mode, this is primarily a **Reference Mode** for monitoring/aiming rather than a stream intended for **3D reconstruction**; it is also **not fully synchronized** and typically runs at a **lower frame rate**. **EdgeTrack**, in contrast, targets determinism **at the edge** via **distributed TDM phase-offset capture** and prioritizes **uncompressed RAW10/RAW12 sensor streams** (instead of H.264/H.265 pipelines) to preserve pixel fidelity for **stable, reproducible stereo reconstruction**.
+
+---
+
+## Why RAW Stereo Capture Instead of H.265
+
+Most commercially available stereo and depth cameras rely on **H.264/H.265 video compression** to reduce bandwidth and simplify integration. While this approach is sufficient for visualization, XR previews, and general perception tasks, it introduces **lossy compression artifacts, temporal smoothing, and non-deterministic frame behavior** that negatively affect precise 3D reconstruction.
+
+For high-accuracy stereo vision, **uncompressed RAW sensor data** is fundamentally superior. Using **RAW10** preserves the original linear pixel intensities produced by the image sensor, without spatial or temporal loss. This enables more robust stereo matching, accurate sub-pixel disparity estimation, and consistent depth reconstruction across frames.
+
+In addition, RAW capture allows precise control over **exposure, gain, and synchronization**, which is essential for deterministic multi-camera systems. When combined with **near-infrared (NIR) illumination**, RAW stereo becomes significantly more stable under varying lighting conditions and supports reliable operation in controlled and industrial environments.
+
+For these reasons, the project deliberately avoids H.265-based pipelines and focuses on **RAW10 stereo capture**, prioritizing determinism, precision, and authoring-grade 3D data quality over bandwidth efficiency.
 
 ---
 
