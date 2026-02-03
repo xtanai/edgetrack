@@ -59,6 +59,8 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 
 > **Note:** **OptiTrack** determinism is achieved via centralized camera systems and proprietary sync hardware; EdgeTrack provides determinism at the edge via distributed TDM capture.
 
+> **Note:** **Leap Motion** uses a dual-camera hardware setup; however, the system does not expose or process stereo data as a general-purpose stereo vision pipeline.
+
 ---
 
 ## USB vs. Ethernet vs. WLAN
