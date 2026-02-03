@@ -48,7 +48,7 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 | AI On-device accelerator support (NPU/GPU)   |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢**     |
 | Expandable hardware (add-ons / upgrades)     |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢       |
 | Typical interface                            |         USB        |       USB     |        USB       | Ethernet  |  USB / GigE   |      USB      |      Ethernet   |
-| Typical price range                          |         $$$$       |       $$$$    |        $$        |   $$$$$   |      $$$$     |       $$$     |         $#      |
+| Typical price range                          |         $$$$       |      $$$$$    |        $$        |   $$$$$$  |     $$$$$     |       $$$     |         $#      |
 
 \* Depends on camera selection and edge platform configuration. Effective update rates above 1000 Hz are achieved only via **TDM phase-offset interleaving** across multiple synchronized stereo rigs (a **virtual/effective rate**), not from a single physical camera.
 
