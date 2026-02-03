@@ -56,11 +56,11 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 
 \# Market-comparable pricing requires mass production. During early stages, off-the-shelf edge hardware (e.g., Raspberry Pi 5) and selected self-built components may be used to reduce development cost.
 
-> **Note:** **Phase-offset capture** is a key advantage, enabling **highest-precision authoring** through deterministic, phase-stable timing.
+> **Phase-offset capture** is a key advantage, enabling **highest-precision authoring** through deterministic, phase-stable timing.
 
-> **Note:** **Leap Motion** uses a dual-camera hardware setup; however, the system does not expose or process stereo data as a general-purpose stereo vision pipeline.
+> **Leap Motion** uses a dual-camera hardware setup; however, the system does not expose or process stereo data as a general-purpose stereo vision pipeline.
 
-> **Note:** **OptiTrack** achieves determinism through a **centralized camera array** and **proprietary synchronization hardware**. While OptiTrack offers a **“raw grayscale”** video mode, this is primarily a **Reference Mode** for monitoring/aiming rather than a stream intended for **3D reconstruction**; it is also **not fully synchronized** and typically runs at a **lower frame rate**. **EdgeTrack**, in contrast, targets determinism **at the edge** via **distributed TDM phase-offset capture** and prioritizes **uncompressed RAW10/RAW12 sensor streams** (instead of H.264/H.265 pipelines) to preserve pixel fidelity for **stable, reproducible stereo reconstruction**.
+> **OptiTrack** achieves determinism through a **centralized camera array** and **proprietary synchronization hardware**. While OptiTrack offers a **“raw grayscale”** video mode, this is primarily a **Reference Mode** for monitoring/aiming rather than a stream intended for **3D reconstruction**; it is also **not fully synchronized** and typically runs at a **lower frame rate**. **EdgeTrack**, in contrast, targets determinism **at the edge** via **distributed TDM phase-offset capture** and prioritizes **uncompressed RAW10/RAW12 sensor streams** (instead of H.264/H.265 pipelines) to preserve pixel fidelity for **stable, reproducible stereo reconstruction**.
 
 ---
 
