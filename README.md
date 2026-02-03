@@ -53,7 +53,7 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 
 \** EdgeTrack accelerator support depends on the selected edge platform (e.g., optional NPU/GPU modules).
 
-\# Market-comparable pricing requires mass production. 
+\# Market-comparable pricing requires mass production. During early stages, off-the-shelf edge hardware (e.g., Raspberry Pi 5) and selected self-built components may be used to reduce development cost.
 
 > **Note:** **Phase-offset capture** is a key advantage, enabling **highest-precision authoring** through deterministic, phase-stable timing.
 
