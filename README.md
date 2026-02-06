@@ -180,7 +180,7 @@ External, camera-based tracking can enable **affordable VR** while still deliver
 
 **Why this matters**
 
-* **No IMU drift:** optical tracking provides an **absolute 6DoF pose** (position + orientation) from geometry, instead of integrating IMU motion that accumulates error over time. For precision workflows, this is often a better fit than IMU-only tracking. 👉 [**Pen3D**](https://github.com/xtanai/pen3d) and [**HandNode**](https://github.com/xtanai/handnode)
+* **No IMU drift:** optical tracking provides an **absolute 6DoF pose** (position + orientation) from geometry, instead of integrating IMU motion that accumulates error over time. For precision workflows, this is often a better fit than IMU-only tracking. 👉 [Pen3D](https://github.com/xtanai/pen3d) and [HandNode](https://github.com/xtanai/handnode)
 * **Cheaper headset hardware:** fewer sensors and less calibration on the headset.
 * **Better repeatability:** stable timing + fixed geometry yields consistent pose over time.
 * **Scales to multi-device setups:** multiple tracked objects can coexist in the same capture volume.
