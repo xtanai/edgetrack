@@ -244,6 +244,9 @@ LiDAR and Time-of-Flight (ToF) sensors are often considered for 3D perception, b
 * **Limited spatial resolution:**
   Most ToF and LiDAR systems provide comparatively low angular and spatial resolution, which is insufficient for fine hand, finger, or tool-level detail required in CAD/DCC authoring.
 
+* **Over-dense point clouds (low signal-to-value):**
+  For interaction, we often **don’t want a full, dense point cloud** everywhere. Much of that data is redundant or irrelevant, increasing bandwidth and compute without improving control quality. What matters is **stable, trackable structure** (keypoints, edges, marker geometry, ROI).
+
 * **Temporal instability and noise:**
   Depth measurements are affected by multi-path interference, surface reflectivity, and ambient IR, leading to **temporal noise, depth flutter, and jitter**—especially problematic for precise, repeatable input.
 
