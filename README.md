@@ -14,11 +14,13 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 
 ## Why EdgeTrack?
 
-I’m currently building MotionCoder (a semantic gesture-control layer for 3D authoring). During development, I realized that most current hand-tracking hardware isn’t optimized for MotionCoder’s deterministic, high-precision, time-stable editor workflows, particularly when it comes to fine hand articulation. This matters to me personally because I have experience using sign language. That insight led me to build my own tracking stack on Raspberry Pi 5: EdgeTrack (edge-side multi-camera capture and stereo reconstruction) and CoreFusion (host-side fusion across multiple EdgeTrack units), fully open source.
+I’m building **MotionCoder**, a semantic gesture-control layer for precise 3D authoring. During development, I found that most current hand-tracking systems prioritize real-time demos and inside-out convenience - not **repeatable, time-stable, high-precision editor workflows**, especially for fine hand articulation.
 
-Along the way, I discovered even more possibilities and additional use cases. The same approach is also relevant for professional VR/XR and 3D workflows such as precise tool tracking, high-speed scanning, and MoCap-driven authoring, especially where sharp, reliable tracking quality matters.
+That matters to me personally: I have experience with sign language, where finger articulation and stability are critical. This led me to build an open tracking stack on Raspberry Pi 5: **EdgeTrack** (edge-side multi-camera capture + stereo reconstruction) and **CoreFusion** (host-side fusion across multiple EdgeTrack units).
 
-As I developed the modern multi-camera architecture, I realized it could genuinely be valuable and considered filing patents. But it quickly became clear that this path wasn’t realistic: it’s complex and expensive, and it often adds friction for end users, along with the overhead of investors, legal fees, and ongoing stress. Instead, I chose an open-source approach and focused on building a solution that’s efficient, accessible, and faster to iterate on.
+Along the way, it became clear this architecture generalizes beyond hand tracking. It also fits demanding VR/XR and 3D workflows such as **precise tool tracking**, **high-speed scanning**, and **MoCap-driven authoring**—anywhere deterministic geometry and reliable timing matter.
+
+I briefly considered patents, but the tradeoffs didn’t make sense: high cost, legal overhead, slower iteration, and added friction for users. Instead, I’m building this **open source** to keep it accessible, practical, and fast to improve.
 
 ---
 
