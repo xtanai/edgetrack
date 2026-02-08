@@ -18,7 +18,7 @@ I’m building **MotionCoder**, a semantic gesture-control layer for precise 3D 
 
 That matters to me personally: I have experience with sign language, where finger articulation and stability are critical. This led me to build an open tracking stack on Raspberry Pi 5: **EdgeTrack** (edge-side multi-camera capture + stereo reconstruction) and **CoreFusion** (host-side fusion across multiple EdgeTrack units).
 
-Along the way, it became clear this architecture generalizes beyond hand tracking. It also fits demanding VR/XR and 3D workflows such as **precise tool tracking**, **high-speed scanning**, and **MoCap-driven authoring**—anywhere deterministic geometry and reliable timing matter.
+Along the way, it became clear this architecture generalizes beyond hand tracking. It also fits demanding VR/XR and 3D workflows such as **precise tool tracking**, **high-speed scanning**, and **MoCap-driven authoring** - anywhere deterministic geometry and reliable timing matter.
 
 I briefly considered patents, but the tradeoffs didn’t make sense: high cost, legal overhead, slower iteration, and added friction for users. Instead, I’m building this **open source** to keep it accessible, practical, and fast to improve.
 
