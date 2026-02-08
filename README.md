@@ -26,16 +26,16 @@ I briefly considered patents, but the tradeoffs didn’t make sense: high cost, 
 
 ## Features
 
-* **True 3D at the edge:** Stereo reconstruction runs directly on-device, producing **metric 3D keypoints** instead of raw images or 2D detections — **no heuristic inside-out estimation** and **no approximate reconstruction**.
-* **RAW-first capture:** **RAW10** preserves linear sensor data and avoids ISP artifacts—often more reliable for reconstruction and calibration.
-* **Deterministic capture:** Synchronized **global-shutter sensors** with TDM strobe phases ensure repeatable timing and geometry.
-* **Low latency:** Edge-side preprocessing and triangulation minimize host-side load and end-to-end delay.
-* **Linux on the edge:** A Linux-based edge stack provides **flexibility, deep configurability, and long-term maintainability** (drivers, networking, deployment, and tooling).
-* **Bandwidth-efficient:** Transmits only **3D keypoints, sparse ROI point clouds, and references** — no raw video streaming.
-* **Scalable:** 2× cameras per device (stereo); combine **3–4 stereo rigs** via LAN.
-* **Marker-optional:** Gloveless by default; **wristbands** improve arm stability; **fingertip markers** enable highest precision.
-* **Optional GPU/NPU AI assist:** An optional GPU or NPU can improve robustness (e.g., fast left/right disambiguation, consistency checks, and early error detection).
-* **Optional RGB helper camera:** A center-mounted RGB camera can support setup workflows (visual inspection, text/marker reading, calibration aids) **without being part of the 3D reconstruction path**.
+* **Metric 3D on the edge:** On-device stereo reconstruction outputs **metric 3D keypoints** (and optional sparse ROI point clouds) rather than raw video streams or purely 2D detections.
+* **RAW-first capture:** **RAW10** preserves linear sensor data and avoids many ISP artifacts that can reduce calibration and reconstruction stability.
+* **Deterministic timing:** Synchronized **global-shutter sensors** with TDM strobe phases enable repeatable capture timing and geometry.
+* **Low latency pipeline:** Edge-side preprocessing and triangulation reduce host load and end-to-end latency.
+* **Linux on the edge:** A Linux-based stack enables robust deployment and long-term maintainability (drivers, networking, tooling).
+* **Bandwidth-efficient output:** Transmit **3D keypoints, sparse ROI point clouds, and references** - no raw video streaming required.
+* **Scales across rigs:** 2 cameras per device (stereo); combine **2–8 stereo rigs** over LAN for larger capture volumes.
+* **Marker-optional:** Gloveless by default; **wristbands** can improve arm stability; **fingertip markers** enable highest precision.
+* **Optional GPU/NPU assist:** Optional acceleration can improve robustness (e.g., left/right disambiguation, consistency checks, early failure detection).
+* **Optional RGB helper camera:** A center RGB camera can support setup (visual inspection, text/marker reading, calibration aids) **without entering the reconstruction path**.
 
 ---
 
