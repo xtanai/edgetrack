@@ -14,6 +14,16 @@ EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-la
 
 ## Why EdgeTrack?
 
+I’m currently building MotionCoder (a semantic gesture-control layer for 3D authoring). During development, I realized that most current hand-tracking hardware isn’t optimized for MotionCoder’s deterministic, high-precision, time-stable editor workflows, particularly when it comes to fine hand articulation. This matters to me personally because I have experience using sign language. That insight led me to build my own tracking stack on Raspberry Pi 5: EdgeTrack (edge-side multi-camera capture and stereo reconstruction) and CoreFusion (host-side fusion across multiple EdgeTrack units), fully open source.
+
+Along the way, I discovered even more possibilities and additional use cases. The same approach is also relevant for professional VR/XR and 3D workflows such as precise tool tracking, high-speed scanning, and MoCap-driven authoring, especially where sharp, reliable tracking quality matters.
+
+As I developed the modern multi-camera architecture, I realized it could genuinely be valuable and considered filing patents. But it quickly became clear that this path wasn’t realistic: it’s complex and expensive, and it often adds friction for end users, along with the overhead of investors, legal fees, and ongoing stress. Instead, I chose an open-source approach and focused on building a solution that’s efficient, accessible, and faster to iterate on.
+
+---
+
+## Features
+
 * **True 3D at the edge:** Stereo reconstruction runs directly on-device, producing **metric 3D keypoints** instead of raw images or 2D detections — **no heuristic inside-out estimation** and **no approximate reconstruction**.
 * **RAW-first capture:** **RAW10** preserves linear sensor data and avoids ISP artifacts—often more reliable for reconstruction and calibration.
 * **Deterministic capture:** Synchronized **global-shutter sensors** with TDM strobe phases ensure repeatable timing and geometry.
