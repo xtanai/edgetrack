@@ -186,36 +186,21 @@ Therefore, EdgeTrack uses **LAN for payload and timestamps**, while **TDM phase 
 
 ## LiDAR and ToF
 
-LiDAR and Time-of-Flight (ToF) sensors are often considered for 3D perception, but they come with **significant trade-offs** for **high-precision, close-range authoring and interaction workflows**.
+LiDAR and Time-of-Flight (ToF) sensors are frequently used for 3D perception, but they introduce trade-offs that can be problematic for **high-precision, close-range authoring and interaction** workflows.
 
 **Key limitations in this context:**
 
-* **Limited spatial resolution:**
-  Most ToF and LiDAR systems provide comparatively low angular and spatial resolution, which is insufficient for fine hand, finger, or tool-level detail required in CAD/DCC authoring.
+* **Effective spatial resolution at close range:** Many ToF/LiDAR modules—especially compact or consumer-class devices—provide lower effective spatial detail than multi-view stereo, which limits fine hand, finger, or tool-level tracking.
+* **Unstructured data for interaction:** Dense depth/point outputs are not automatically useful for control. Interaction benefits most from **stable structure** (keypoints, edges, marker geometry, ROI constraints) rather than uniform depth everywhere.
+* **Temporal noise and instability:** Depth measurements can be affected by multi-path interference, surface reflectivity, ambient IR, and sensor-internal filtering, causing depth flutter and jitter—undesirable for repeatable input.
+* **Multi-view scaling complexity:** Scaling active depth sensors across multiple viewpoints can increase cost and complexity due to emitter interference management (time-multiplexing, frequency/coding separation) and synchronization constraints.
+* **Limited deterministic control:** Many modules behave as closed systems with fixed timing and internal depth processing, offering limited external synchronization and reduced transparency for frame-accurate multi-sensor fusion.
+* **Integration and cost overhead:** High-quality LiDAR/industrial ToF systems with low noise and good stability are often expensive and may require proprietary SDKs and constrained deployment workflows.
+* **Near-field suitability:** Many LiDAR/ToF systems are optimized for mid-to-long range. For desktop-scale workspaces, **stereo vision with controlled illumination** often provides higher effective precision and better repeatability.
 
-* **Over-dense point clouds (low signal-to-value):**
-  For interaction, we often **don’t want a full, dense point cloud** everywhere. Much of that data is redundant or irrelevant, increasing bandwidth and compute without improving control quality. What matters is **stable, trackable structure** (keypoints, edges, marker geometry, ROI).
+**Short:** LiDAR/ToF sensors typically increase BOM, calibration, and integration complexity. In contrast, a simple global-shutter mono camera is easier to manufacture and scale.
 
-* **Temporal instability and noise:**
-  Depth measurements are affected by multi-path interference, surface reflectivity, and ambient IR, leading to **temporal noise, depth flutter, and jitter**—especially problematic for precise, repeatable input.
-
-* **Poor scalability for multi-view setups:**
-  Scaling LiDAR/ToF to multiple viewpoints is complex and expensive. Mutual interference between active emitters requires careful scheduling or frequency separation, increasing system complexity.
-
-* **Limited deterministic control:**
-  Most ToF/LiDAR modules operate as closed systems with fixed timing, internal ISP pipelines, and limited external synchronization, making **frame-accurate, deterministic multi-sensor fusion difficult**.
-
-* **Integration and cost overhead:**
-  High-quality LiDAR or industrial ToF sensors with acceptable noise characteristics are costly and often require proprietary SDKs, firmware constraints, and non-Linux-friendly tooling.
-
-* **Suboptimal for near-field interaction:**
-  Many LiDAR/ToF sensors are optimized for mid- to long-range sensing. In near-field (hands, tools, desktop-scale workspaces), stereo vision with controlled illumination typically achieves **higher effective precision**.
-
-**Short:**
-LiDAR/ToF sensors are significantly more complex, often making mass production more expensive and less efficient. In contrast, a simple global-shutter mono camera is far simpler and scales much better in manufacturing.
-
-**EdgeTrack design choice:**
-EdgeTrack deliberately favors **synchronized global-shutter stereo vision with controlled NIR illumination**. This approach provides:
+**EdgeTrack design choice:** EdgeTrack deliberately favors synchronized global-shutter stereo vision with controlled NIR illumination, enabling:
 
 * higher spatial detail at close range
 * deterministic timing via external strobe and phase control
@@ -223,7 +208,7 @@ EdgeTrack deliberately favors **synchronized global-shutter stereo vision with c
 * lower system and integration cost
 * full control over the capture and reconstruction pipeline
 
-For the targeted use cases—**deterministic 3D authoring, precise hand/tool interaction, and reproducible editor workflows**—multi-view stereo with explicit timing control offers a **more accurate, scalable, and transparent foundation** than LiDAR or ToF-based systems.
+For deterministic 3D authoring, precise hand/tool interaction, and reproducible editor workflows, multi-view stereo with explicit timing control is often a more accurate, scalable, and transparent foundation than LiDAR/ToF-based systems.
 
 ---
 
