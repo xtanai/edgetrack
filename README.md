@@ -3,8 +3,7 @@
 EdgeTrack is designed as a deterministic capture backend for professional 3D authoring and interaction systems.
 
 **EdgeTrack** is an on-edge capture and preprocessing stack for synchronized **RAW10 mono multi-camera** pipelines, targeting **Raspberry Pi 5 (primary)** or **Radxa Dragon Q6A (secondary)**.
-It provides **deterministic camera I/O**, **calibration-aware undistortion/normalization**, and **on-edge stereo reconstruction** to output **true metric 3D keypoints** with time-consistent sampling.
-Optionally, EdgeTrack can publish **ROI-reduced sparse 3D point clouds** to a host over **Gigabit LAN**.
+It provides **deterministic camera I/O**, **calibration-aware undistortion/normalization**, and **on-edge stereo reconstruction** to output **metric-scale 3D keypoints derived from calibrated stereo geometry**, with time-consistent sampling (error bounds depend on calibration and mechanics). Optionally, EdgeTrack can publish **ROI-reduced sparse 3D point clouds** to a host over **Gigabit LAN**.
 
 EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-latency capture, and **deterministic NIR illumination** via throw/fill channels and **A/B/C/D phase sequencing**.
 
@@ -48,7 +47,7 @@ I briefly considered patents, but the tradeoffs didn’t make sense: high cost, 
 |----------------------------------------------|:------------------:|:-------------:|:----------------:|:---------:|:-------------:|:-------------:|:----------------:|
 | Primary use case                             | Depth sensing / XR | Stereo vision | XR hand tracking |   MoCap   | Stereo vision | Depth sensing | Editor authoring |
 | Capture FPS (typical)                        |         Mid        |      Mid      |       High       | Very High |      Low      |      Mid      |    Very High*    |
-| Stereo / multi-camera                        |         🟢         |       🟢     |        🔴        |    🟢    |      🟢       |       🟢     |        🟢       |
+| Stereo / multi-camera                        |         🟢         |       🟢     |        🟡        |    🟢    |      🟢       |       🟢     |        🟢       |
 | RAW10 or RAW12                               |         🔴         |       🟢     |        🔴        |    🟡    |      🟢       |       🔴     |        🟢       |
 | Multi-device fusion (native)                 |         🔴         |       🔴     |        🔴        |    🟢    |      🔴       |       🔴     |        🟢       |
 | Phase-offset capture (TDM Module)            |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢       |
@@ -94,13 +93,13 @@ USB, Ethernet, and WLAN are all commonly used to connect cameras and tracking de
 
 **USB** is widely available and easy to set up, making it well suited for single-device configurations, prototyping, and consumer peripherals. However, USB is typically host-driven and shared across multiple devices on the same controller. As a result, bandwidth contention, variable latency, and timing jitter can occur, especially in multi-camera setups or under high system load. While acceptable for many use cases, these characteristics can limit predictability in time-critical pipelines.
 
-**Ethernet** is designed for distributed and scalable systems. Each device operates independently on the network and communicates using explicit packetization, buffering, and timestamps. This enables more predictable latency, cleaner synchronization across multiple devices, and stable performance over longer cable distances. Ethernet also supports structured topologies using switches, VLANs, and Power-over-Ethernet (PoE), making it well suited for multi-rig and multi-room setups. For professional capture and deterministic processing pipelines, Ethernet is often the preferred transport layer.
+**Ethernet** is designed for distributed and scalable systems. Each device operates independently on the network and commuates using explicit packetization, buffering, and timestamps. This enables more predictable latency, cleaner synchronization across multiple devices, and stable performance over longer cable distances. Ethernet also supports structured topologies using switches, VLANs, and Power-over-Ethernet (PoE), making it well suited for multi-rig and multi-room setups. For professional capture and deterministic processing pipelines, Ethernet is often the preferred transport layer.
 
 **WLAN (Wi-Fi)** provides flexibility and mobility by removing physical cables, which can be advantageous in portable or rapidly reconfigurable environments. However, wireless links are inherently subject to interference, variable airtime, and changing network conditions. These factors can introduce fluctuating latency, packet loss, and jitter, which complicate synchronization and reproducibility. While modern Wi-Fi standards offer high peak bandwidth, sustained real-time performance is harder to guarantee.
 
 In practice, USB is convenient for simple setups, Ethernet offers the most control and scalability for deterministic systems, and WLAN trades predictability for mobility and ease of deployment.
 
-> **Note:** For deterministic timing, direct NIC connections are preferred; network switches may introduce additional latency and jitter and are therefore discouraged.
+> **Note:** For tight timing, direct NIC connections are preferred. Switches usually add small latency, but can add variability under congestion; use QoS/VLAN/PTP if deterministic timing is required.
 
 ---
 
