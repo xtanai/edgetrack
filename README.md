@@ -211,6 +211,9 @@ LiDAR and Time-of-Flight (ToF) sensors are often considered for 3D perception, b
 * **Suboptimal for near-field interaction:**
   Many LiDAR/ToF sensors are optimized for mid- to long-range sensing. In near-field (hands, tools, desktop-scale workspaces), stereo vision with controlled illumination typically achieves **higher effective precision**.
 
+**Short:**
+LiDAR/ToF sensors are significantly more complex, often making mass production more expensive and less efficient. In contrast, a simple global-shutter mono camera is far simpler and scales much better in manufacturing.
+
 **EdgeTrack design choice:**
 EdgeTrack deliberately favors **synchronized global-shutter stereo vision with controlled NIR illumination**. This approach provides:
 
