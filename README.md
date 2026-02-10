@@ -108,7 +108,7 @@ In practice, USB is convenient for simple setups, Ethernet offers the most contr
 ---
 ## Modern Architecture
 
-### 1. Innovative Separation of Capture and Processing
+### 1. Clear Separation of Capture and Processing
 
 #### Problem
 
@@ -130,7 +130,7 @@ This architecture preserves the **timing fidelity and signal quality** of native
 
 ---
 
-### 2. Innovative Concept: Replacing CoaXPress
+### 2. Ethernet-Native Alternative to CoaXPress
 
 A **CoaXPress-based** camera infrastructure is a high-end solution in terms of **bandwidth and timing precision**, but it is **cost-intensive** and requires substantial **integration effort**, including dedicated **frame grabbers** and complex host-side pipelines.
 
@@ -153,7 +153,7 @@ Additional rigs can be added via **standard LAN connections**, rather than consu
 
 ---
 
-### 3. Innovative TDM (Time-Division Multiplexing)
+### 3. TDM Phase-Offset Capture for Deterministic Timing
 
 EdgeTrack uses **phase-offset global-shutter capture via Time-Division Multiplexing (TDM)**.
 Instead of exposing all cameras simultaneously, multiple stereo rigs are triggered in **time-interleaved phases**.
