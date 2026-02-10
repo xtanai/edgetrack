@@ -106,10 +106,11 @@ In practice, USB is convenient for simple setups, Ethernet offers the most contr
 > **Note:** For tight timing, direct NIC connections are preferred. Switches usually add small latency, but can add variability under congestion; use QoS/VLAN/PTP if deterministic timing is required.
 
 ---
+## Modern Architecture
 
-## 1. Innovative Separation of Capture and Processing
+### 1. Innovative Separation of Capture and Processing
 
-### Problem
+#### Problem
 
 Native **MIPI CSI** camera interfaces offer excellent bandwidth, low latency, and precise timing, but they suffer from a major limitation: **very short cable lengths**, which makes larger or distributed camera setups impractical.
 
@@ -121,7 +122,7 @@ In addition, purpose-built **GigE / 2.5GigE machine-vision cameras** remain rela
 
 At the high end, **CoaXPress** can deliver outstanding performance with direct, low-latency data paths into CPU/GPU memory. However, it comes with **very high hardware cost**, requires dedicated **frame grabbers**, and scales poorly **in terms of system cost and integration complexity**. Beyond the capture hardware itself, processing **multiple high-resolution cameras on a single host** can place a substantial load on the CPU/GPU—often pushing systems toward high-end workstation-class hardware (e.g., Threadripper-class systems) and significant engineering effort to optimize the processing pipeline.
 
-### Solution
+#### Solution
 
 EdgeTrack separates **image capture** from **high-level processing** by moving **reconstruction and preprocessing directly to the edge**. Instead of concentrating the entire workload on a single, expensive host system, each edge device performs its **local reconstruction tasks** using native MIPI CSI—where it performs best—and exports only **processed, compact 3D data** (e.g., keypoints, tool poses, sparse geometry) over the network.
 
@@ -129,7 +130,7 @@ This architecture preserves the **timing fidelity and signal quality** of native
 
 ---
 
-## 2. Innovative Concept: Replacing CoaXPress
+### 2. Innovative Concept: Replacing CoaXPress
 
 A **CoaXPress-based** camera infrastructure is a high-end solution in terms of **bandwidth and timing precision**, but it is **cost-intensive** and requires substantial **integration effort**, including dedicated **frame grabbers** and complex host-side pipelines.
 
@@ -152,7 +153,7 @@ Additional rigs can be added via **standard LAN connections**, rather than consu
 
 ---
 
-## 3. Innovative TDM (Time-Division Multiplexing)
+### 3. Innovative TDM (Time-Division Multiplexing)
 
 EdgeTrack uses **phase-offset global-shutter capture via Time-Division Multiplexing (TDM)**.
 Instead of exposing all cameras simultaneously, multiple stereo rigs are triggered in **time-interleaved phases**.
@@ -172,7 +173,7 @@ A small **MCU-based trigger controller** generates deterministic, phase-shifted 
 When fused in **CoreFusion**, this results in an **effective aggregate update rate of up to ~960 Hz**, while maintaining **low jitter and high temporal stability**, depending on configuration and synchronization.
 
 
-### Why TDM Is Not Distributed Over LAN (and Why an MCU Can Still Make Sense)
+#### Why TDM Is Not Distributed Over LAN (and Why an MCU Can Still Make Sense)
 
 A dedicated MCU (e.g., **RP2040**) is **not strictly required**—on a **Raspberry Pi 5**, TDM trigger signals can be generated locally using **hardware timers and/or DMA-driven GPIO** with sufficient precision for **120 FPS**.
 
