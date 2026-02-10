@@ -52,6 +52,7 @@ I briefly considered patents, but the tradeoffs didn’t make sense: high cost, 
 | Capture FPS (typical)                        |         Mid        |      Mid      |       High       | Very High |      Low      |      Mid      |    Very High*    |
 | Stereo / multi-camera                        |         🟢         |       🟢     |        🟡        |    🟢    |      🟢       |       🟢     |        🟢       |
 | RAW10 or RAW12                               |         🔴         |       🟢     |        🔴        |    🟡    |      🟢       |       🔴     |        🟢       |
+| RAW10 ingest on the edge (CPU/GPU)           |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢       |
 | Native multi-device fusion                   |         🔴         |       🔴     |        🔴        |    🟢    |      🔴       |       🔴     |        🟢       |
 | Phase-offset capture (TDM Module)            |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢       |
 | **Deterministic event layer**                |         🔴         |       🔴     |        🔴        |  **🟢**  |      🔴       |       🔴     |      **🟢**     |
