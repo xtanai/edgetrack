@@ -26,14 +26,16 @@ I briefly considered patents, but the tradeoffs didn’t make sense: high cost, 
 ## Features
 
 * **Metric 3D on the edge:** On-device stereo reconstruction outputs **metric 3D keypoints** (and optional sparse ROI point clouds) rather than raw video streams or purely 2D detections.
-* **RAW-first capture:** **RAW10** preserves linear sensor data and avoids many ISP artifacts that can reduce calibration and reconstruction stability.
-* **Deterministic timing:** Synchronized **global-shutter sensors** with TDM strobe phases enable repeatable capture timing and geometry.
+* **RAW-first capture:** **RAW10** preserves linear sensor data at the edge, avoiding ISP-induced artifacts that reduce calibration accuracy and stereo reconstruction stability.
 * **Low latency pipeline:** Edge-side preprocessing and triangulation reduce host load and end-to-end latency.
+* **Deterministic timing:** Synchronized **global-shutter sensors** with TDM strobe phases enable repeatable capture timing and geometry.
+* **850/940 nm IR-ready:** Supports **850 nm or 940 nm** illumination (sensor- and filter-dependent) for stable, ambient-robust imaging and better user comfort.
 * **Linux on the edge:** A Linux-based stack enables robust deployment and long-term maintainability (drivers, networking, tooling).
-* **Bandwidth-efficient output:** Transmit **3D keypoints, sparse ROI point clouds, and references** - no raw video streaming required.
-* **Scales across rigs:** 2 cameras per device (stereo); combine **2–8 stereo rigs** over LAN for larger capture volumes.
+* **Ethernet-first networking:** Designed for **wired Ethernet** (PoE where applicable) to deliver predictable bandwidth, low jitter, and reliable multi-rig synchronization.
+* **Bandwidth-efficient output:** Transmit **3D keypoints, sparse ROI point clouds, and references** - no raw video streaming required; optional high-quality H.265 preview is available for monitoring and setup.
+* **Scales across rigs:** 2 cameras per device (stereo) at the edge; combine **2–8 stereo rigs** over LAN for larger capture volumes.
 * **Marker-optional:** Gloveless by default; **wristbands** can improve arm stability; **fingertip markers** enable highest precision.
-* **Optional GPU/NPU assist:** Optional acceleration can improve robustness (e.g., left/right disambiguation, consistency checks, early failure detection).
+* **Optional GPU/NPU AI assist:** Optional acceleration can improve robustness (e.g., left/right disambiguation, consistency checks, early failure detection).
 * **Optional RGB helper camera:** A center RGB camera can support setup (visual inspection, text/marker reading, calibration aids) **without entering the reconstruction path**.
 
 ---
