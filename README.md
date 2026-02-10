@@ -33,8 +33,9 @@ I briefly considered patents, but the tradeoffs didn’t make sense: high cost, 
 * **Linux on the edge:** A Linux-based stack enables robust deployment and long-term maintainability (drivers, networking, tooling).
 * **Ethernet-first networking:** Designed for **wired Ethernet** (PoE where applicable) to deliver predictable bandwidth, low jitter, and reliable multi-rig synchronization.
 * **Bandwidth-efficient output:** Transmit **3D keypoints, sparse ROI point clouds, and references** - no raw video streaming required; optional high-quality H.265 preview is available for monitoring and setup.
-* **Scales across rigs:** 2 cameras per device (stereo) at the edge; combine **2–8 stereo rigs** over LAN for larger capture volumes.
+* **Scales across rigs:** Each device runs a **2-camera stereo pair at the edge**; combine **2–8 stereo rigs** over Ethernet to cover larger capture volumes and **significantly reduce occlusions** via multi-view coverage.
 * **Marker-optional:** Gloveless by default; **wristbands** can improve arm stability; **fingertip markers** enable highest precision.
+* **Optional tracked peripherals:** Supports tracked tools such as **VR headset markers, 3D pens/styluses, and props**, enabling high-precision workflows beyond hand tracking.
 * **Optional GPU/NPU AI assist:** Optional acceleration can improve robustness (e.g., left/right disambiguation, consistency checks, early failure detection).
 * **Optional RGB helper camera:** A center RGB camera can support setup (visual inspection, text/marker reading, calibration aids) **without entering the reconstruction path**.
 
@@ -51,7 +52,7 @@ I briefly considered patents, but the tradeoffs didn’t make sense: high cost, 
 | Capture FPS (typical)                        |         Mid        |      Mid      |       High       | Very High |      Low      |      Mid      |    Very High*    |
 | Stereo / multi-camera                        |         🟢         |       🟢     |        🟡        |    🟢    |      🟢       |       🟢     |        🟢       |
 | RAW10 or RAW12                               |         🔴         |       🟢     |        🔴        |    🟡    |      🟢       |       🔴     |        🟢       |
-| Multi-device fusion (native)                 |         🔴         |       🔴     |        🔴        |    🟢    |      🔴       |       🔴     |        🟢       |
+| Native multi-device fusion                   |         🔴         |       🔴     |        🔴        |    🟢    |      🔴       |       🔴     |        🟢       |
 | Phase-offset capture (TDM Module)            |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢       |
 | **Deterministic event layer**                |         🔴         |       🔴     |        🔴        |  **🟢**  |      🔴       |       🔴     |      **🟢**     |
 | **Editor-oriented API**                      |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |      **🟢**     |
