@@ -75,13 +75,14 @@ I briefly considered patents, but the tradeoffs didn’t make sense: high cost, 
 
 \*** Market-comparable pricing requires mass production. During early stages, off-the-shelf edge hardware (e.g., Raspberry Pi 5) and selected self-built components may be used to reduce development cost.
 
-\**** EdgeTrack depth range and resolution values are **configuration-dependent**. Practical performance varies with sensor choice, lens/FOV, baseline, calibration quality, NIR illumination power/pattern (e.g., 850 nm), exposure/gain, scene texture, and the stereo matching pipeline.
+\**** EdgeTrack depth range and resolution values are configuration-dependent. Practical performance varies with sensor choice, lens/FOV, baseline, calibration quality, NIR illumination power/pattern (e.g., 850 nm), exposure/gain, scene texture, and the stereo matching pipeline.
 
-* EdgeTrack is intentionally optimized for **deterministic, high-precision editor workflows in the near field**. For the current target configuration, the **practical “product-ready” range is ~0.1–1.2 m**.
+* EdgeTrack is intentionally optimized for deterministic, high-precision editor workflows in the near field. For the current reference configuration, the practical “product-ready” range is ~0.1–1.2 m.
 
-* Using **two or three synchronized stereo rigs** (multi-view fusion) can significantly improve robustness and effective precision (especially under occlusion and low-texture conditions), compared to a single stereo pair.
+* Using two or three synchronized stereo rigs (multi-view fusion) can significantly improve robustness and repeatability (especially under occlusion and low-texture conditions) compared to a single stereo pair, and may also improve effective accuracy depending on scene geometry and noise.
 
-* For **>2 m**, 850 nm NIR flood illumination becomes increasingly inefficient and stereo depth becomes less stable (SNR drops, disparity shrinks). In such ranges, alternative approaches can be more effective depending on the application—for example **RGB cameras with higher spatial resolution combined with AI-based segmentation/tracking**. However, this is **outside EdgeTrack’s primary focus**, which prioritizes **repeatable, phase-stable capture** and **near-field authoring accuracy**.
+* Beyond ~2 m, with wide-angle 850 nm NIR flood illumination and typical power budgets, efficiency drops and stereo matching becomes less stable (SNR decreases, disparity shrinks). For longer ranges, alternative approaches may be more suitable depending on the application—for example higher-resolution RGB cameras combined with AI-based segmentation/tracking—however this is outside EdgeTrack’s primary focus, which prioritizes repeatable, phase-stable capture and near-field authoring accuracy.
+
 
 
 > **Phase-offset capture** is a key advantage, enabling **highest-precision authoring** through deterministic, phase-stable timing.
