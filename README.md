@@ -81,7 +81,7 @@ I briefly considered patents, but the tradeoffs didn’t make sense: high cost, 
 
 * Using two or three synchronized stereo rigs (multi-view fusion) can significantly improve robustness and repeatability (especially under occlusion and low-texture conditions) compared to a single stereo pair, and may also improve effective accuracy depending on scene geometry and noise.
 
-* Beyond ~2 m, with wide-angle 850 nm NIR flood illumination and typical power budgets, efficiency drops and stereo matching becomes less stable (SNR decreases, disparity shrinks). For longer ranges, alternative approaches may be more suitable depending on the application—for example higher-resolution RGB cameras combined with AI-based segmentation/tracking—however this is outside EdgeTrack’s primary focus, which prioritizes repeatable, phase-stable capture and near-field authoring accuracy.
+* Beyond ~2 m, with wide-angle 850 nm NIR flood illumination and typical power budgets, efficiency drops and stereo matching becomes less stable (SNR decreases, disparity shrinks). For longer ranges, alternative approaches may be more suitable depending on the application - for example higher-resolution RGB cameras combined with AI-based segmentation/tracking—however this is outside EdgeTrack’s primary focus, which prioritizes repeatable, phase-stable capture and near-field authoring accuracy.
 
 
 
