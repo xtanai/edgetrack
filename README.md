@@ -65,7 +65,7 @@ I briefly considered patents, but the tradeoffs didn’t make sense: high cost, 
 | Depth range (typical)                        |      ~0.5–6 m      |    ~0.3–5 m  |    ~0.1–0.8 m     | ~0.2–20 m |  ~0.2–1.0 m  |   ~0.15–10 m  |  0.1–1.2 m****  |
 | Depth resolution @ 0.2 m                     |       ~2 mm        |     ~2 mm    |      ~0.5 mm      | ~<0.2 mm  |    ~0.04 mm  |    ~1 mm      |  ~0.2 mm****    |
 | Depth resolution @ 0.5 m                     |       ~5 mm        |     ~5 mm    |      ~2 mm        |  ~<0.5 mm |    ~0.5 mm   |    ~4 mm      |  ~1.5 mm****    |
-| Depth resolution @ 1.2 m                     |      ~15 mm        |     ~15 mm   |         -         |   ~2 mm   |    ~1–3 mm   |    ~15 mm     |  ~6 mm****      |
+| Depth resolution @ 1.2 m                     |      ~15 mm        |     ~15 mm   |         -         |   ~2 mm   |     ~2 mm    |    ~15 mm     |  ~6 mm****      |
 | Typical interface                            |         USB        |       USB     |        USB       | Ethernet  |  USB / GigE  |      USB      |   Ethernet      |
 | Typical price range                          |         $$$$       |      $$$$$    |        $$        |   $$$$$$  |     $$$$$    |      $$$      |     $***        |
 
