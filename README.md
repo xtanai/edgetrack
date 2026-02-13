@@ -62,24 +62,43 @@ I briefly considered patents, but the tradeoffs didn’t make sense: high cost, 
 | Linux-based edge device (on-board OS)        |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢       |
 | AI On-device accelerator support (NPU/GPU)   |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢**     |
 | Expandable hardware (add-ons / upgrades)     |         🔴         |       🔴     |        🔴        |    🔴    |      🔴       |       🔴     |        🟢       |
-| Depth range (typical)                        |      ~0.5–6 m      |    ~0.3–5 m   |    ~0.1–0.8 m    | ~0.2–20 m*** | ~0.2–1.0 m | ~0.15–10 m | 0.1–1.2 m |
-| Depth resolution @ 0.2 m                     |      ~1–2 mm       |    ~1–2 mm    |    ~0.2–0.5 mm   | ~<0.2 mm**** | ~0.04 mm | ~0.5–1 mm | ~0.2 mm |
-| Depth resolution @ 0.5 m                     |      ~3–6 mm       |    ~3–6 mm    |    ~1–2 mm       |  ~<0.5 mm**** | ~0.3–0.5 mm | ~2–5 mm | ~1.5 mm |
-| Depth resolution @ 1.2 m                     |    ~10–20 mm       |    ~10–20 mm  |   tracking only  | ~1–2 mm**** | ~1–3 mm | ~10–20 mm | ~6 mm |
+| Depth range (typical)                        |      ~0.5–6 m      |    ~0.3–5 m   |    ~0.1–0.8 m    | ~0.2–20 m | ~0.2–1.0 m | ~0.15–10 m | 0.1–1.2 m |
+| Depth resolution @ 0.2 m                     |      ~1–2 mm       |    ~1–2 mm    |    ~0.2–0.5 mm   | ~<0.2 mm | ~0.04 mm | ~0.5–1 mm | ~0.2 mm |
+| Depth resolution @ 0.5 m                     |      ~3–6 mm       |    ~3–6 mm    |    ~1–2 mm       |  ~<0.5 mm | ~0.3–0.5 mm | ~2–5 mm | ~1.5 mm |
+| Depth resolution @ 1.2 m                     |    ~10–20 mm       |    ~10–20 mm  |   tracking only  | ~1–2 mm | ~1–3 mm | ~10–20 mm | ~6 mm |
 | Typical interface                            |         USB        |       USB     |        USB       | Ethernet  |  USB / GigE   |      USB      |      Ethernet   |
-| Typical price range                          |         $$$$       |      $$$$$    |        $$        |   $$$$$$  |     $$$$$     |       $$$     |         $#      |
+| Typical price range                          |         $$$$       |      $$$$$    |        $$        |   $$$$$$  |     $$$$$     |       $$$     |         $***    |
 
 \* Depends on camera selection and edge platform configuration. Effective update rates above 1000 Hz are achieved only via **TDM phase-offset interleaving** across multiple synchronized stereo rigs (a **virtual/effective rate**), not from a single physical camera.
 
 \** EdgeTrack accelerator support depends on the selected edge platform (e.g., optional NPU/GPU modules).
 
-\# Market-comparable pricing requires mass production. During early stages, off-the-shelf edge hardware (e.g., Raspberry Pi 5) and selected self-built components may be used to reduce development cost.
+\*** Market-comparable pricing requires mass production. During early stages, off-the-shelf edge hardware (e.g., Raspberry Pi 5) and selected self-built components may be used to reduce development cost.
 
 > **Phase-offset capture** is a key advantage, enabling **highest-precision authoring** through deterministic, phase-stable timing.
 
 > **Leap Motion** uses a dual-camera hardware setup; however, the system does not expose or process stereo data as a general-purpose stereo vision pipeline.
 
 > **OptiTrack** achieves determinism through a **centralized camera array** and **proprietary synchronization hardware**. While OptiTrack offers a **“raw grayscale”** video mode, this is primarily a **Reference Mode** for monitoring/aiming rather than a stream intended for **3D reconstruction**; it is also **not fully synchronized** and typically runs at a **lower frame rate**. **EdgeTrack**, in contrast, targets determinism **at the edge** via **distributed TDM phase-offset capture** and prioritizes **uncompressed RAW10/RAW12 sensor streams** (instead of H.264/H.265 pipelines) to preserve pixel fidelity for **stable, reproducible stereo reconstruction**.
+
+### Notes on depth range & “resolution” figures
+
+The depth range and resolution values in this table are **order-of-magnitude estimates** meant for architectural comparison.  
+In real systems, results depend heavily on optics (FOV, focus, IR filtering), surface properties, illumination power/pattern, exposure, and matching/denoise pipelines.
+
+#### OptiTrack (marker-based triangulation)
+OptiTrack is **not a stereo depth camera**. It reconstructs 3D positions by **triangulating reflective markers** across a calibrated camera array.
+With a well-designed volume (good geometry, calibration, lens choice, controlled lighting), **sub-millimeter to millimeter accuracy** is achievable.
+Because the measurement principle is different from active depth cameras (stereo/ToF/structured light), the “depth resolution” numbers are **not directly comparable**.
+
+#### Basler Stereo (industrial stereo)
+Basler’s industrial stereo solutions can achieve **very high precision in the near field** (e.g., ~0.04 mm at ~0.2 m under optimal conditions).
+However, **maximum precision typically comes with trade-offs**: reduced effective FPS at full depth quality, strict calibration requirements, and controlled illumination/scene texture.  
+This is why the table marks Basler as **“Low” FPS (typical)** in a conservative, market-wide comparison.
+
+#### RealSense / ZED / Orbbec (consumer/prosumer depth cameras)
+Many depth-camera vendors specify accuracy as a **percentage of distance** (a common rule-of-thumb is ~1–2% of range, depending on model and conditions).
+For that reason, the mm-values shown here are presented as **realistic ranges**, not best-case lab numbers, and should be interpreted as “what you can typically expect” rather than guaranteed performance.
 
 ---
 
