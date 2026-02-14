@@ -46,7 +46,7 @@ I briefly considered patents, but the tradeoffs didn’t make sense: high cost, 
 > Note: This comparison focuses on architectural capabilities and integration models.
 > Feature availability may vary by configuration and firmware.
 
-| Feature / Focus                              | ZED 2i & RealSense |  Bumblebee® X |   Leap Motion    | OptiTrack | Basler Stereo | Orbbec Gemini |     EdgeTrack    |
+| Feature / Focus                              | ZED 2i & RealSense |   Bumblebee   |   Leap Motion    | OptiTrack | Basler Stereo |    Orbbec     |     EdgeTrack    |
 |----------------------------------------------|:------------------:|:-------------:|:----------------:|:---------:|:-------------:|:-------------:|:----------------:|
 | Primary use case                             | Depth sensing / XR | Stereo vision | XR hand tracking |   MoCap   | Stereo vision | Depth sensing | Editor authoring |
 | Capture FPS (typical)                        |         Mid        |      Mid      |       High       | Very High |      Low      |      Mid      |    Very High*    |
