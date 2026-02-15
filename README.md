@@ -19,7 +19,7 @@ That matters to me personally: I have experience with sign language, where finge
 
 Along the way, it became clear this architecture generalizes beyond hand tracking. It also fits demanding VR/XR and 3D workflows such as **precise tool tracking**, **high-speed scanning**, **teleoperation robotics**, and **MoCap-driven authoring** - anywhere deterministic geometry and reliable timing matter.
 
-I briefly considered patents, but the tradeoffs didn’t make sense: high cost, legal overhead, slower iteration, and added friction for users. Instead, I’m building this **open source** to keep it accessible, practical, and fast to improve.
+I briefly considered patents, but the tradeoffs didn’t make sense: high cost, legal overhead, slower iteration, and added friction for users. Instead, I’m building this **open source** under the **Apache 2.0 license** to keep it accessible, practical, and fast to improve.
 
 ---
 
