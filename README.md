@@ -13,9 +13,9 @@ EdgeTrack is designed to pair with **[TDMStrobe](https://github.com/xtanai/tdmst
 
 ## Why EdgeTrack?
 
-I’m building **MotionCoder**, a semantic gesture-control layer for precise 3D authoring. During development, I found that most current hand-tracking systems prioritize real-time demos and inside-out convenience - not **repeatable, time-stable, high-precision editor workflows**, especially for fine hand articulation.
+I’m building **[MotionCoder](https://github.com/xtanai/motioncoder)**, a semantic gesture-control layer for precise 3D authoring. During development, I found that most current hand-tracking systems prioritize real-time demos and inside-out convenience - not **repeatable, time-stable, high-precision editor workflows**, especially for fine hand articulation.
 
-That matters to me personally: I have experience with sign language, where finger articulation and stability are critical. This led me to build an open tracking stack on Raspberry Pi 5: **EdgeTrack** (edge-side multi-camera capture + stereo reconstruction) and **CoreFusion** (host-side fusion across multiple EdgeTrack units).
+That matters to me personally: I have experience with sign language, where finger articulation and stability are critical. This led me to build an open tracking stack on Raspberry Pi 5: **EdgeTrack** (edge-side multi-camera capture + stereo reconstruction) and **[CoreFusion](https://github.com/xtanai/corefusion)** (host-side fusion across multiple EdgeTrack units).
 
 Along the way, it became clear this architecture generalizes beyond hand tracking. It also fits demanding VR/XR and 3D workflows such as **precise tool tracking**, **high-speed scanning**, **teleoperation robotics**, and **MoCap-driven authoring** - anywhere deterministic geometry and reliable timing matter.
 
