@@ -5,7 +5,7 @@ EdgeTrack is designed as a deterministic capture backend for professional 3D aut
 **EdgeTrack** is an on-edge capture and preprocessing stack for synchronized **RAW10 mono multi-camera** pipelines, targeting **Raspberry Pi 5 (primary)** or **Radxa Dragon Q6A (secondary)**.
 It provides **deterministic camera I/O**, **calibration-aware undistortion/normalization**, and **on-edge stereo reconstruction** to output **metric-scale 3D keypoints derived from calibrated stereo geometry**, with time-consistent sampling (error bounds depend on calibration and mechanics). Optionally, EdgeTrack can publish **ROI-reduced sparse 3D point clouds** to a host over **Gigabit LAN**.
 
-EdgeTrack is designed to pair with **TDMStrobe**, enabling stable timing, low-latency capture, and **deterministic NIR illumination** via throw/fill channels and **A/B/C/D phase sequencing**.
+EdgeTrack is designed to pair with **TDMStrobe** and **CoreFusion** to deliver stable synchronization, low-latency capture, and **deterministic NIR illumination**. TDMStrobe provides hardware-timed strobe control aligned to camera triggers and can coordinate illumination using an **A/B/C/D phase sequence** across multiple rigs to reduce cross-talk and keep exposure consistent. CoreFusion ingests the time-aligned outputs from multiple EdgeTrack nodes over **Gigabit Ethernet** and fuses them into a coherent representation (e.g., multi-view keypoints, tracks, or sparse geometry) with predictable timing and well-defined latency.
 
 > **Status:** early prototype. APIs, wiring, and schemas may change.
 
