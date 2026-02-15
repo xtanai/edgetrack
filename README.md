@@ -141,6 +141,23 @@ In practice, USB is convenient for simple setups, Ethernet offers the most contr
 > **Note:** For tight timing, direct NIC connections are preferred. Switches usually add small latency, but can add variability under congestion; use QoS/VLAN/PTP if deterministic timing is required.
 
 ---
+
+## Latency Comparison (Typical, No Aggressive Tuning)
+
+| # | Class                                                         | Typical latency (no tuning)                                          | Jitter / determinism                            | Main latency contributors                                                                       | Practical notes                                                                                                                                                                                                                                     |
+| - | ------------------------------------------------------------- | -------------------------------------------------------------------- | ----------------------------------------------- | ----------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1 | **High-end USB webcam (UVC, often ISP + MJPEG/H.264)**        | **50–200 ms** (often “noticeably laggy”)                             | **poor–medium**, highly variable                | Camera ISP + **multi-frame buffering** + (optional) codec/decode + host color/format conversion | Often “beautified” internally (AE/NR/scaling) and buffered for smooth video. Usually not suitable for low-latency VR/tracking workloads.                                                                                                            |
+| 2 | **Industrial USB (USB3 Vision, often uncompressed/RAW/mono)** | **10–30 ms**                                                         | **medium**                                      | Sensor (exposure/readout) + USB transfer + host queue/copy                                      | Much better than webcams. **Bottlenecks:** USB bandwidth per host controller, cable/EMI constraints, and multi-camera setups saturate quickly. Multi-view can heavily load the host (DMA + CPU/GPU processing).                                     |
+| 3 | **Industrial GigE (GigE Vision, UDP)**                        | **15–40 ms**                                                         | **medium**, jitter possible                     | Packetization + NIC/kernel/queueing + (optional) switch/network effects                         | Robust and flexible (long cables, PoE options). Without tuning you can see **jitter/spikes** (network contention, driver scheduling, interrupts). Multi-camera works, but host + network design becomes critical.                                   |
+| 4 | **CoaXPress (frame grabber)**                                 | **5–20 ms**                                                          | **good–very good**                              | Sensor dominates; transport is almost “invisible”                                               | Highly deterministic with very fast triggering. **Downside:** **expensive** (cameras + frame grabber + cables) and a heavier industrial ecosystem. Multi-camera scales well, but cost/integration is high.                                          |
+| 5 | **EdgeTrack (edge compute + results over Ethernet only)**     | **5–15 ms (keypoints/ROI)** / **10–30 ms (dense depth/point cloud)** | **very good**, deterministic (HW trigger + MCU) | Sensor + edge compute time (minimal transport overhead)                                         | You “spend” latency on **edge compute**, but save a lot elsewhere: no video codec, no RAW transport, and far less host load. Multi-view scales better because the host fuses **small result streams** (CoreFusion) instead of handling full frames. |
+
+### Why #5 often “feels” best in real systems
+
+* For **#1–#4**, the host typically has to **move frames + decode + convert formats + run vision**, which adds latency, jitter, and CPU/GPU load.
+* For **#5**, the expensive work happens **before transport**, and you transmit only **keypoints/ROI/point clouds**, leading to lower, more predictable latency and a simpler host pipeline.
+
+---
 ## Modern Architecture
 
 ### 1. Clear Separation of Capture and Processing
