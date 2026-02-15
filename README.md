@@ -122,6 +122,8 @@ In addition, RAW capture allows precise control over **exposure, gain, and synch
 
 For these reasons, the project deliberately avoids H.265-based pipelines and focuses on **RAW10 stereo capture**, prioritizing determinism, precision, and authoring-grade 3D data quality over bandwidth efficiency.
 
+> Note: H.265 is common for AI segmentation streams, but compression artifacts can bias models. In EdgeTrack, **geometry is the baseline**; AI is optional.
+
 ---
 
 ## USB vs. Ethernet vs. WLAN
