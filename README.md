@@ -159,7 +159,7 @@ In practice, USB is convenient for simple setups, Ethernet offers the most contr
 
 ---
 
-**VCSEL Pattern Projector vs. Standard NIR LED**
+## VCSEL Pattern Projector vs. Standard NIR LED
 
 A VCSEL pattern projector (Vertical-Cavity Surface-Emitting Laser) generates a structured light pattern that is projected onto the scene. This artificial texture helps stereo or depth algorithms perform reliable matching, especially on smooth or low-texture surfaces. VCSEL-based systems provide high optical efficiency, well-defined projection patterns, and compact integration. They are commonly used in industrial 3D vision systems and mobile depth-sensing applications. However, they also introduce higher complexity, stricter eye-safety requirements, additional optical components (such as diffractive optics), and typically higher overall cost.
 
