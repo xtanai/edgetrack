@@ -73,7 +73,7 @@ I briefly considered patents, but the tradeoffs didn’t make sense: high cost, 
 
 \** EdgeTrack accelerator support depends on the selected edge platform (e.g., optional NPU/GPU modules).
 
-\**** EdgeTrack depth range and resolution values are configuration-dependent. Practical performance varies with sensor choice, lens/FOV, baseline, calibration quality, NIR illumination power/pattern (e.g., 850 nm), exposure/gain, scene texture, and the stereo matching pipeline.
+\*** EdgeTrack depth range and resolution values are configuration-dependent. Practical performance varies with sensor choice, lens/FOV, baseline, calibration quality, NIR illumination power/pattern (e.g., 850 nm), exposure/gain, scene texture, and the stereo matching pipeline.
 
 * EdgeTrack is intentionally optimized for deterministic, high-precision editor workflows in the near field. For the current reference configuration, the practical “product-ready” range is ~0.1–1.2 m.
 
