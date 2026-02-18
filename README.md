@@ -62,18 +62,16 @@ I briefly considered patents, but the tradeoffs didn’t make sense: high cost, 
 | Linux-based edge device (on-board OS)        |         🔴         |       🔴     |        🔴         |    🔴     |      🔴      |       🔴      |        🟢       |
 | AI On-device accelerator support (NPU/GPU)   |         🔴         |       🔴     |        🔴         |    🔴     |      🔴      |       🔴      |        🟢**     |
 | Expandable hardware (add-ons / upgrades)     |         🔴         |       🔴     |        🔴         |    🔴     |      🔴      |       🔴      |        🟢       |
-| Depth range (typical)                        |      ~0.5–6 m      |    ~0.3–5 m  |     ~0.1–1 m      | ~0.2–20 m |  ~0.2–1.0 m  |   ~0.15–10 m  |  0.1–1.2 m****  |
-| Depth resolution @ 0.2 m                     |       ~2 mm        |     ~2 mm    |      ~0.5 mm      | ~<0.2 mm  |    ~0.04 mm  |    ~1 mm      |  ~0.2 mm****    |
-| Depth resolution @ 0.5 m                     |       ~5 mm        |     ~5 mm    |      ~2 mm        |  ~<0.5 mm |    ~0.5 mm   |    ~4 mm      |  ~1.5 mm****    |
-| Depth resolution @ 1.2 m                     |      ~15 mm        |     ~15 mm   |         -         |   ~2 mm   |     ~2 mm    |    ~15 mm     |  ~6 mm****      |
+| Depth range (typical)                        |      ~0.5–6 m      |    ~0.3–5 m  |     ~0.1–1 m      | ~0.2–20 m |  ~0.2–1.0 m  |   ~0.15–10 m  |  0.1–1.2 m***  |
+| Depth resolution @ 0.2 m                     |       ~2 mm        |     ~2 mm    |      ~0.5 mm      | ~<0.2 mm  |    ~0.04 mm  |    ~1 mm      |  ~0.2 mm***    |
+| Depth resolution @ 0.5 m                     |       ~5 mm        |     ~5 mm    |      ~2 mm        |  ~<0.5 mm |    ~0.5 mm   |    ~4 mm      |  ~1.5 mm***    |
+| Depth resolution @ 1.2 m                     |      ~15 mm        |     ~15 mm   |         -         |   ~2 mm   |     ~2 mm    |    ~15 mm     |  ~6 mm***      |
 | Typical interface                            |         USB        |       USB     |        USB       | Ethernet  |  USB / GigE  |      USB      |   Ethernet      |
-| Typical price range                          |         $$$$       |      $$$$$    |        $$        |   $$$$$$  |     $$$$$    |      $$$      |     $***        |
+| Typical price range                          |         $$$$       |      $$$$$    |        $$        |   $$$$$$  |     $$$$$    |      $$$      |         $       |
 
 \* Depends on camera selection and edge platform configuration. Effective update rates above 1000 Hz are achieved only via **TDM phase-offset interleaving** across multiple synchronized stereo rigs (a **virtual/effective rate**), not from a single physical camera.
 
 \** EdgeTrack accelerator support depends on the selected edge platform (e.g., optional NPU/GPU modules).
-
-\*** Market-comparable pricing requires mass production. During early stages, off-the-shelf edge hardware (e.g., Raspberry Pi 5) and selected self-built components may be used to reduce development cost.
 
 \**** EdgeTrack depth range and resolution values are configuration-dependent. Practical performance varies with sensor choice, lens/FOV, baseline, calibration quality, NIR illumination power/pattern (e.g., 850 nm), exposure/gain, scene texture, and the stereo matching pipeline.
 
