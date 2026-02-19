@@ -41,6 +41,31 @@ I briefly considered patents, but the tradeoffs didn’t make sense: high cost, 
 
 ---
 
+## Important
+
+For NIR stereo, you don’t *need* AI. EdgeTrack uses **deterministic NIR stereo vision** as the primary tracking method. AI is **optional** and only used as an assistive layer when it provides clear benefits (e.g., stability checks, lightweight classification, or recovery in difficult edge cases).
+
+A single stereo rig can benefit from AI assistance, but the strongest approach is **multi-view geometry**: with **2–3 stereo rigs**, occlusions are reduced and tracking becomes more reliable—often requiring **little to no AI**.
+
+A short example is Apple’s **Depth Pro**. It’s a powerful monocular depth model, but it does **not replace** physical stereo measurement. Each approach is strong in different ways. In EdgeTrack, models like this can be useful as an assistant (e.g., fallback depth hints, plausibility checks, or failure detection), but they are not required for the core tracking pipeline.
+
+| Property                  | Stereo (physical)                   | Depth Pro (AI)                |
+| ------------------------- | ----------------------------------- | ----------------------------- |
+| **Per-frame speed**       | High (optimized)                    | Lower (depends on GPU/TPU)    |
+| **Determinism**           | Yes (geometry-based)                | No (model-based inference)    |
+| **Texture-poor surfaces** | Can struggle*                       | Often better (learned priors) |
+| **Gloss/reflections**     | Better (with good lighting control) | Can be unstable               |
+| **Real-world robustness** | High when calibrated                | Variable                      |
+| **Interpretability**      | Measurement                         | Estimate                      |
+
+\* In controlled indoor setups (no direct sun, minimal glare, and stable NIR illumination), stereo typically performs very well. Problems usually appear on **low-texture** materials or **strong specular reflections** - both of which can be mitigated with good lighting, filters, and multi-view coverage.
+
+EdgeTrack is designed to address these practical edge cases primarily through **optics and geometry**. The current prototype uses **diffuse (matte) NIR illumination** to achieve a clean, homogeneous flood field, which improves stereo correspondence and reduces failure modes caused by hotspots or uneven lighting. On top of that, **MultiView coverage** (2–3 rigs) makes the system far more tolerant to low-texture regions by reducing occlusions and increasing the chance that at least one viewpoint captures usable detail.
+
+Structured-light projectors can also help in extreme texture-poor scenes, but they add cost, complexity, and cross-talk challenges—often without clear benefits for EdgeTrack’s target use cases. For **close-range hand interaction**, natural micro-texture on skin and clothing combined with controlled NIR lighting is typically sufficient, making structured light unnecessary in most real-world scenarios.
+
+---
+
 ## Comparison of Available Hardware on the Market
 
 > Note: This comparison focuses on architectural capabilities and integration models.
