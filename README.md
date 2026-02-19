@@ -192,7 +192,7 @@ In summary, VCSEL pattern projectors improve depth matching in challenging scene
 
 ---
 
-## Modern Architecture
+## My Architecture and Design — Unconventional and Beyond the Market
 
 ### 1. Clear Separation of Capture and Processing
 
@@ -271,6 +271,34 @@ The key distinction is **where timing is generated**:
 Therefore, EdgeTrack uses **LAN for payload and timestamps**, while **TDM phase triggering is generated locally on each edge device** (Pi-side or MCU-side). If multiple edge devices must share a common phase reference, synchronization is handled via a **deterministic wired sync bus** (e.g., **RS-485**) or a **shared time base** (e.g., clock sync + scheduled start times), rather than sending **per-frame triggers** over the network.
 
 > In short: **LAN transports data; the edge generates timing.**
+
+### 4. Short Features
+
+#### Stereo-First, Not AI-First
+
+EdgeTrack uses **NIR stereo vision** as the primary tracking method. Depth is computed through **triangulation**, which means the system measures real geometry instead of guessing it. This makes the output predictable, repeatable, and easier to validate—especially important in professional workflows where stability matters more than “impressive demos.”
+
+#### Designed for Short-Exposure Motion Freeze
+
+The front-facing NIR illumination is not decorative. It enables **ultra-short exposure times** that freeze fast motion and reduce blur. This improves stereo correspondence, reduces noise, and stabilizes tracking under real-world movement—something many consumer-grade depth solutions struggle with.
+
+#### MultiView as the Main Upgrade Path
+
+Instead of relying on heavier models to “fix” failures, EdgeTrack scales through **MultiView geometry**. With **2–3 stereo rigs**, occlusions are reduced and robustness increases dramatically. In many scenarios, MultiView delivers reliability that would otherwise require complex AI, but without losing determinism.
+
+#### Edge Processing, Minimal Data Output
+
+EdgeTrack is designed to process data on the edge and export only what matters:
+
+* 3D keypoints
+* ROI point clouds
+* compact geometric results
+
+This reduces bandwidth, lowers latency, and keeps the system scalable for multi-sensor setups.
+
+#### Optional AI as a Support Layer
+
+AI can be added where it truly helps—such as plausibility checks, lightweight classification, or recovery in difficult edge cases. But AI is not the core. The core is a system you can measure, tune, and trust.
 
 ---
 
