@@ -41,7 +41,7 @@ I briefly considered patents, but the tradeoffs didn’t make sense: high cost, 
 
 ---
 
-## Important
+## Important: Don’t Confuse AI Depth with Physical Stereo
 
 For NIR stereo, you don’t *need* AI. EdgeTrack uses **deterministic NIR stereo vision** as the primary tracking method. AI is **optional** and only used as an assistive layer when it provides clear benefits (e.g., stability checks, lightweight classification, or recovery in difficult edge cases).
 
