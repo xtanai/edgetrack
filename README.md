@@ -101,7 +101,7 @@ In EdgeTrack, AI models act as **assistive layers**, not as the measurement foun
 | **NPU/GPU requirement**    | No                              | Often beneficial                     | Required for real-time            |
 | **Per-frame latency**      | Low, predictable                | Medium to high                       | Medium to high                    |
 | **Multi-view consistency** | Naturally consistent            | Needs fusion logic                   | Needs full reconstruction logic   |
-| **Texture-poor surfaces**  | Can struggle without pattern    | Often improved                       | Often improved                    |
+| **Texture-poor surfaces**  | Can struggle without pattern *  | Often improved                       | Often improved                    |
 | **Gloss / reflections**    | Controlled with NIR + filtering | Model-dependent                      | Can hallucinate                   |
 | **Occlusion handling**     | Solved via multi-view geometry  | Improved with fusion                 | Must infer hidden geometry        |
 | **Interpretability**       | Physical measurement            | Hybrid                               | Statistical estimate              |
@@ -230,7 +230,7 @@ For these reasons, the project deliberately avoids H.265-based pipelines and foc
 
 ---
 
-## USB vs. Ethernet vs. WLAN
+## Interface: USB vs. Ethernet vs. WLAN
 
 USB, Ethernet, and WLAN are all commonly used to connect cameras and tracking devices, but they differ significantly in terms of determinism, scalability, and reliability.
 
@@ -243,6 +243,8 @@ USB, Ethernet, and WLAN are all commonly used to connect cameras and tracking de
 In practice, USB is convenient for simple setups, Ethernet offers the most control and scalability for deterministic systems, and WLAN trades predictability for mobility and ease of deployment.
 
 > **Note:** For tight timing, direct NIC connections are preferred. Switches usually add small latency, but can add variability under congestion; use QoS/VLAN/PTP if deterministic timing is required.
+
+More Info: 👉 [Sensor Guide](https://github.com/xtanai/sensor-guide)
 
 ---
 
