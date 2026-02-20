@@ -43,26 +43,86 @@ I briefly considered patents, but the tradeoffs didn’t make sense: high cost, 
 
 ## Important: Don’t Confuse AI Depth with Physical Stereo
 
-For NIR stereo, you don’t *need* AI. EdgeTrack uses **deterministic NIR stereo vision** as the primary tracking method. AI is **optional** and only used as an assistive layer when it provides clear benefits (e.g., stability checks, lightweight classification, or recovery in difficult edge cases).
+For NIR stereo tracking, **AI is not required**.
 
-A single stereo rig can benefit from AI assistance, but the strongest approach is **multi-view geometry**: with **2–3 stereo rigs**, occlusions are reduced and tracking becomes more reliable—often requiring **little to no AI**.
+EdgeTrack is built on **deterministic, geometry-based NIR stereo vision** as the primary measurement system. Depth is computed from **physical baseline geometry, calibrated optics, and synchronized capture** — not from learned priors.
 
-A short example is Apple’s **Depth Pro**. It’s a powerful monocular depth model, but it does **not replace** physical stereo measurement. Each approach is strong in different ways. In EdgeTrack, models like this can be useful as an assistant (e.g., fallback depth hints, plausibility checks, or failure detection), but they are not required for the core tracking pipeline.
+AI is **optional** and only used where it provides clear value, such as:
 
-| Property                  | Stereo (physical)                   | Depth Pro (AI)                |
-| ------------------------- | ----------------------------------- | ----------------------------- |
-| **Per-frame speed**       | High (optimized)                    | Lower (depends on GPU/TPU)    |
-| **Determinism**           | Yes (geometry-based)                | No (model-based inference)    |
-| **Texture-poor surfaces** | Can struggle*                       | Often better (learned priors) |
-| **Gloss/reflections**     | Better (with good lighting control) | Can be unstable               |
-| **Real-world robustness** | High when calibrated                | Variable                      |
-| **Interpretability**      | Measurement                         | Estimate                      |
+* Stability monitoring
+* Lightweight classification
+* Left/right ambiguity checks
+* Failure detection or recovery
+* Semantic interpretation (gesture meaning, object type, etc.)
+
+The **core 3D reconstruction pipeline remains purely geometric**.
+
+### Why Multi-View Geometry Is Stronger Than AI Guessing
+
+A single stereo rig can benefit from AI assistance in difficult cases.
+
+However, the strongest approach is **multi-view geometry**:
+
+With **2–3 synchronized stereo rigs**, the system gains:
+
+* Reduced occlusions
+* Redundant triangulation
+* Cross-validation between views
+* Higher robustness without learned priors
+
+In many setups, this reduces the need for AI almost entirely.
+
+### Example: Apple’s Depth Pro
+
+Apple’s Depth Pro is a powerful **monocular AI depth model**.
+
+It is impressive — but it does not replace physical stereo measurement.
+
+* AI depth infers structure from patterns learned during training.
+* Stereo depth measures disparity from real-world geometry.
+
+Both are valuable.
+In EdgeTrack, AI models can act as **assistive tools**, not as the measurement foundation.
+
+### Physical Stereo vs AI Depth
+
+| Property                        | Stereo (Physical, Geometry-Based) | AI Depth (e.g., Depth Pro)                     |
+| ------------------------------- | --------------------------------- | ---------------------------------------------- |
+| **Depth principle**             | Triangulation from baseline       | Learned inference from image                   |
+| **Per-frame speed**             | High, deterministic               | Depends on model + accelerator                 |
+| **Determinism**                 | Yes (repeatable)                  | No (probabilistic output)                      |
+| **Metric scale accuracy**       | True metric (after calibration)   | Often relative scale unless trained/calibrated |
+| **3D reconstruction stability** | High when calibrated              | Can fluctuate frame-to-frame                   |
+| **Multi-view consistency**      | Naturally consistent              | Requires additional fusion logic               |
+| **Texture-poor surfaces**       | Can struggle without pattern*     | Often better (learned priors)                  |
+| **Gloss / reflections**         | Controlled with NIR lighting      | Can hallucinate or destabilize                 |
+| **Occlusion handling**          | Solved via multi-view             | Must infer hidden geometry                     |
+| **Hardware dependency**         | Camera + optics + sync            | Strong GPU/NPU dependency                      |
+| **Interpretability**            | Physical measurement              | Statistical estimation                         |
+
 
 \* In controlled indoor setups (no direct sun, minimal glare, and stable NIR illumination), stereo typically performs very well. Problems usually appear on **low-texture** materials or **strong specular reflections** - both of which can be mitigated with good lighting, filters, and multi-view coverage.
 
 EdgeTrack is designed to address these practical edge cases primarily through **optics and geometry**. The current prototype uses **diffuse (matte) NIR illumination** to achieve a clean, homogeneous flood field, which improves stereo correspondence and reduces failure modes caused by hotspots or uneven lighting. On top of that, **MultiView coverage** (2–3 rigs) makes the system far more tolerant to low-texture regions by reducing occlusions and increasing the chance that at least one viewpoint captures usable detail.
 
 Structured-light projectors can also help in extreme texture-poor scenes, but they add cost, complexity, and cross-talk challenges—often without clear benefits for EdgeTrack’s target use cases. For **close-range hand interaction**, natural micro-texture on skin and clothing combined with controlled NIR lighting is typically sufficient, making structured light unnecessary in most real-world scenarios.
+
+### Architectural Positioning
+
+EdgeTrack follows a clear hierarchy:
+
+1. **Primary layer:** Deterministic NIR stereo geometry
+2. **Secondary layer (optional):** AI assistance
+3. **Semantic layer:** Gesture interpretation, classification, scene understanding
+
+This avoids a common market confusion:
+
+> AI depth estimation is not the same as physical stereo measurement.
+
+Stereo measures.
+AI estimates.
+
+When combined correctly, they complement each other — but they are not interchangeable.
 
 ---
 
