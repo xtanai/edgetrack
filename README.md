@@ -168,24 +168,30 @@ When combined properly, they complement each other — but they are not intercha
 | Linux-based edge device (on-board OS)        |         🔴         |       🔴     |        🔴         |    🔴     |      🔴      |       🔴      |        🟢       |
 | AI On-device accelerator support (NPU/GPU)   |         🔴         |       🔴     |        🔴         |    🔴     |      🔴      |       🔴      |        🟢**     |
 | Expandable hardware (add-ons / upgrades)     |         🔴         |       🔴     |        🔴         |    🔴     |      🔴      |       🔴      |        🟢       |
-| Depth range (typical)                        |      ~0.5–6 m      |    ~0.3–5 m  |     ~0.1–1 m      | ~0.2–20 m |  ~0.2–1.0 m  |   ~0.15–10 m  |  0.1–1.2 m***  |
+| Depth range (typical)                        |      ~0.5–6 m      |    ~0.3–5 m  |     ~0.1–1 m      | ~0.2–20 m |  ~0.2–1.0 m  |   ~0.15–10 m  |  0.1–10 m***  |
 | Depth resolution @ 0.2 m                     |       ~2 mm        |     ~2 mm    |      ~0.5 mm      | ~<0.2 mm  |    ~0.04 mm  |    ~1 mm      |  ~0.2 mm***    |
 | Depth resolution @ 0.5 m                     |       ~5 mm        |     ~5 mm    |      ~2 mm        |  ~<0.5 mm |    ~0.5 mm   |    ~4 mm      |  ~1.5 mm***    |
 | Depth resolution @ 1.2 m                     |      ~15 mm        |     ~15 mm   |         -         |   ~2 mm   |     ~2 mm    |    ~15 mm     |  ~6 mm***      |
 | Typical interface                            |         USB        |       USB     |        USB       | Ethernet  |  USB / GigE  |      USB      |   Ethernet      |
 | Typical price range                          |         $$$$       |      $$$$$    |        $$        |   $$$$$$  |     $$$$$    |      $$$      |         $       |
 
-\* Depends on camera selection and edge platform configuration. Effective update rates above 1000 Hz are achieved only via **TDM phase-offset interleaving** across multiple synchronized stereo rigs (a **virtual/effective rate**), not from a single physical camera.
 
-\** EdgeTrack accelerator support depends on the selected edge platform (e.g., optional NPU/GPU modules).
+### Footnotes
 
-\*** EdgeTrack depth range and resolution values are configuration-dependent. Practical performance varies with sensor choice, lens/FOV, baseline, calibration quality, NIR illumination power/pattern (e.g., 850 nm), exposure/gain, scene texture, and the stereo matching pipeline.
+\* Capture rates depend on camera selection and edge platform configuration.
+Effective update rates above 1000 Hz are achieved via **TDM phase-offset interleaving** across multiple synchronized stereo rigs (a *virtual/effective* update rate), not from a single physical camera.
 
-* EdgeTrack is intentionally optimized for deterministic, high-precision editor workflows in the near field. For the current reference configuration, the practical “product-ready” range is ~0.1–1.2 m.
+\** Accelerator support depends on the selected edge platform (optional NPU/GPU modules).
 
-* Using two or three synchronized stereo rigs (multi-view fusion) can significantly improve robustness and repeatability (especially under occlusion and low-texture conditions) compared to a single stereo pair, and may also improve effective accuracy depending on scene geometry and noise.
+\*** EdgeTrack is primarily optimized for **high-precision operation up to ~1.2 m** using homogeneous NIR flood illumination.
 
-* Beyond ~2 m, with wide-angle 850 nm NIR flood illumination and typical power budgets, efficiency drops and stereo matching becomes less stable (SNR decreases, disparity shrinks). For longer ranges, alternative approaches may be more suitable depending on the application - for example higher-resolution RGB cameras combined with AI-based segmentation/tracking - however this is outside EdgeTrack’s primary focus, which prioritizes repeatable, phase-stable capture and near-field authoring accuracy.
+For extended range scenarios (up to ~10 m), multiple configurations are possible:
+
+* Integrated **VCSEL dot-pattern modules** (active stereo assist)
+* Neural stereo without strict bandpass filtering (environment-dependent)
+* External high-power NIR flood panels
+
+Range and resolution depend on baseline, optical configuration, illumination mode, and edge processing setup.
 
 
 
