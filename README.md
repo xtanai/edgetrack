@@ -271,16 +271,6 @@ More Info: 👉 [Sensor Interface Guide](https://github.com/xtanai/sensor-guide?
 
 ---
 
-## VCSEL Pattern Projector vs. Standard NIR LED
-
-A VCSEL pattern projector (Vertical-Cavity Surface-Emitting Laser) generates a structured light pattern that is projected onto the scene. This artificial texture helps stereo or depth algorithms perform reliable matching, especially on smooth or low-texture surfaces. VCSEL-based systems provide high optical efficiency, well-defined projection patterns, and compact integration. They are commonly used in industrial 3D vision systems and mobile depth-sensing applications. However, they also introduce higher complexity, stricter eye-safety requirements, additional optical components (such as diffractive optics), and typically higher overall cost.
-
-A standard NIR LED illumination, in contrast, works as a homogeneous flood light. It does not project structured patterns but instead provides uniform infrared lighting (typically around 850 nm) across the scene. This approach is mechanically simpler, more robust, lower cost, and easier to manage thermally. For active stereo systems with sufficient natural texture or high frame-rate operation, NIR flood illumination is often sufficient and delivers stable, deterministic results without introducing additional projection geometry.
-
-In summary, VCSEL pattern projectors improve depth matching in challenging scenes but increase system complexity and cost. NIR LED illumination is simpler, more flexible, and especially suitable for high-FPS tracking applications where stable lighting, low latency, and system robustness are more important than maximum structured-light detail.
-
----
-
 ## My Architecture and Design — Unconventional and Beyond the Market
 
 ### 1. Clear Separation of Capture and Processing
