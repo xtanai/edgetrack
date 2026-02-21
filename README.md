@@ -173,7 +173,7 @@ When combined properly, they complement each other — but they are not intercha
 | Depth resolution @ 0.5 m                     |       ~5 mm        |     ~5 mm    |      ~2 mm        |  ~<0.5 mm |    ~0.5 mm   |    ~4 mm      |  ~1.5 mm***    |
 | Depth resolution @ 1.2 m                     |      ~15 mm        |     ~15 mm   |         -         |   ~2 mm   |     ~2 mm    |    ~15 mm     |  ~6 mm***      |
 | Typical interface                            |         USB        |       USB     |        USB       | Ethernet  |  USB / GigE  |      USB      |   Ethernet      |
-| Typical price range                          |         $$$$       |      $$$$$    |        $$        |   $$$$$$  |     $$$$$    |      $$$      |         $       |
+| Typical price range                          |         $$$$       |      $$$$$    |        $$        |   $$$$$$  |     $$$$$    |      $$$      |       $$$       |
 
 
 ### Footnotes
