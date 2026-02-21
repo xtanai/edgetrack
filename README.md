@@ -250,7 +250,7 @@ In practice, USB is convenient for simple setups, Ethernet offers the most contr
 
 > **Note:** For tight timing, direct NIC connections are preferred. Switches usually add small latency, but can add variability under congestion; use QoS/VLAN/PTP if deterministic timing is required.
 
-More Info: 👉 [Sensor Guide](https://github.com/xtanai/sensor-guide)
+More Info: 👉 [Sensor Interface Guide](https://github.com/xtanai/sensor-guide?tab=readme-ov-file#%EF%B8%8F-quick-engineering-comparison--what-is-the-best-interface-for-deterministic-vision)
 
 ---
 
