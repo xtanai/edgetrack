@@ -25,19 +25,20 @@ I briefly considered patents, but the tradeoffs didn’t make sense: high cost, 
 
 ## Features
 
-* **Metric 3D on the edge:** On-device stereo reconstruction outputs **metric 3D keypoints** (and optional sparse ROI point clouds) rather than raw video streams or purely 2D detections.
-* **RAW-first capture:** **RAW10** preserves linear sensor data at the edge, avoiding ISP-induced artifacts that reduce calibration accuracy and stereo reconstruction stability.
-* **Deterministic timing:** Synchronized **global-shutter sensors** with TDM strobe phases enable repeatable capture timing and geometry.
-* **850/940 nm IR-ready:** Supports **850 nm or 940 nm** illumination (sensor- and filter-dependent) for stable, ambient-robust imaging and better user comfort.
+* **Metric 3D on the edge:** On-device stereo reconstruction outputs **metric 3D keypoints** (and optional sparse ROI point clouds) instead of raw video streams or purely 2D detections.
+* **RAW-first capture:** **RAW10** preserves linear sensor data at the edge, avoiding ISP-induced artifacts that can reduce calibration accuracy and stereo stability.
+* **Deterministic timing:** Synchronized **global-shutter sensors** with **TDM strobe phases** enable repeatable capture timing and consistent geometry.
+* **850/940 nm IR-ready:** Supports **850 nm or 940 nm** illumination (sensor- and filter-dependent) for stable, ambient-robust imaging and improved user comfort.
+* **Multi-mode illumination:** **NIR flood** is optimized for close range (≈ **up to 1.2 m**). **VCSEL pattern projection** is optimized for medium range (≈ **1.2–10 m**) and can also help at closer distances in low-texture scenes.
 * **Linux on the edge:** A Linux-based stack enables robust deployment and long-term maintainability (drivers, networking, tooling).
 * **Ethernet-first networking:** Designed for **wired Ethernet** (PoE where applicable) to deliver predictable bandwidth, low jitter, and reliable multi-rig synchronization.
-* **Bandwidth-efficient output:** Transmit **3D keypoints, sparse ROI point clouds, and references** - no raw video streaming required; optional high-quality H.265 preview is available for monitoring and setup.
-* **Scales across rigs:** Each device runs a **2-camera stereo pair at the edge**; combine **2–8 stereo rigs** over Ethernet to cover larger capture volumes and **significantly reduce occlusions** via multi-view coverage.
-* **Low latency pipeline:** Edge-side preprocessing and triangulation reduce host load and end-to-end latency.
-* **Marker-optional:** Gloveless by default; **wristbands** can improve arm stability; **fingertip markers** enable highest precision.
+* **Bandwidth-efficient output:** Transmits **3D keypoints, sparse ROI point clouds, and references**—no raw video streaming required. An optional **high-quality H.265 preview** is available for monitoring and setup.
+* **Scales across rigs:** Each device runs a **2-camera stereo pair at the edge**; combine **2–8 stereo rigs** over Ethernet to cover larger capture volumes and **significantly reduce occlusions** via multi-view geometry.
+* **Low-latency pipeline:** Edge-side preprocessing and triangulation reduce host load and end-to-end latency.
+* **Marker-optional:** Gloveless by default; optional **wristbands** can improve arm stability; **fingertip markers** enable the highest precision.
 * **Optional tracked peripherals:** Supports tracked tools such as **VR headset markers, 3D pens/styluses, and props**, enabling high-precision workflows beyond hand tracking.
-* **Optional GPU/NPU AI assist:** Used for robustness enhancements such as disambiguation, confidence estimation, and failure detection. In multi-view setups (>2 cameras), geometric redundancy typically reduces the reliance on AI-based methods.
-* **Optional RGB helper camera:** A center RGB camera can support setup (visual inspection, text/marker reading, calibration aids) **without entering the reconstruction path**.
+* **Optional GPU/NPU AI assist:** Used for robustness enhancements such as disambiguation, confidence estimation, and failure detection. In multi-view setups (**>2 cameras**), geometric redundancy typically reduces reliance on AI-based methods.
+* **Optional RGB helper camera:** A center RGB camera can assist setup (visual inspection, text/marker reading, calibration aids) **without entering the reconstruction path**.
 
 ---
 
