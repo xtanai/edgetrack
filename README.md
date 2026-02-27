@@ -221,6 +221,32 @@ This is why the table marks Basler as **“Low” FPS (typical)** in a conservat
 Many depth-camera vendors specify accuracy as a **percentage of distance** (a common rule-of-thumb is ~1–2% of range, depending on model and conditions).
 For that reason, the mm-values shown here are presented as **realistic ranges**, not best-case lab numbers, and should be interpreted as “what you can typically expect” rather than guaranteed performance.
 
+
+---
+
+## ⚙️ VPU vs CPU (Stereo Disparity)
+
+Many people ask: *“Why not just use a VPU camera that outputs dense depth?”*
+Important: **a VPU is not “bad”** 🙂 — it’s simply optimized for a **different strategy**.
+
+✅ **VPU-based systems** shine when you want **efficient, ready-to-use dense depth** (e.g., 720p @ 30 FPS) with low host load.
+✅ **CPU / RAW-first systems** shine when you need **maximum control**, **deterministic timing**, **ROI instead of full-frame**, and **multi-rig synchronization**.
+
+That’s why EdgeTrack focuses on **CPU + RAW-first control**: my priority is **precise geometry, timing consistency, and modular multi-rig operation** — not “depth everywhere at any cost”.
+
+| Feature                                 |                                     🧠 CPU (RAW-first) |                🧩 VPU (On-device depth) |
+| --------------------------------------- | -----------------------------------------------------: | --------------------------------------: |
+| 🗺️ Dense depth efficiency              |                                              ⚠️ Medium |                                  ✅ High |
+| 🎥 720p @ 30 FPS (dense)                | ⚠️ Borderline (depends on disparity range / filtering) |                                ✅ Stable |
+| ⚡ 120 FPS (dense)                       |                                        ❌ Not practical |                           ❌ Not typical |
+| 🎯 ROI matching (targeted)              |                                          ✅ Very strong |                              ⚠️ Limited |
+| 🧪 RAW control / pipeline freedom       |                                         ✅ Full control |                              ⚠️ Limited |
+| 🔗 Multi-rig sync / deterministic phase |                                                ✅ Ideal | ⚠️ Limited (device/framework dependent) |
+
+**In short:**
+🧩 VPU is great for **“easy dense depth output.”**
+🧠 CPU/RAW-first is great for **“controlled, repeatable geometry”** and **multi-rig workflows.**
+
 ---
 
 ## Why RAW Stereo Capture Instead of H.265
