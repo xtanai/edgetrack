@@ -59,29 +59,6 @@ EdgeTrack is designed to pair with **[TDMStrobe](https://github.com/xtanai/tdmst
 
 ---
 
-## Data Flow
-
-1. **Capture** RAW10 frames; attach timestamps and TDM phase IDs
-2. **Preprocess**: undistort, normalize, extract hand ROI
-3. **Stereo reconstruction** → **metric 3D keypoints**
-4. **Augment** with optional **ROI point clouds** and **reference features**
-5. **Publish** over LAN to **CoreFusion**
-6. **CoreFusion** performs multi-rig calibration, fusion, filtering
-7. **Output to MotionCoder**: clean, low-latency **3D key-pose stream**
-
----
-
-## Configuration
-
-* **EdgeTrack (edge)**: camera IDs, intrinsics/extrinsics, baseline, FOV
-* **Lighting**: phase map, throw/fill pulse widths, guard times
-* **Networking**: transport (UDP / ZeroMQ / TCP), MTU, topics
-* **ROI policy**: detector thresholds, crop sizes, hysteresis
-* **References**: AprilTag families, board layout, wrist/fingertip options
-* **CoreFusion (host)**: rig registry, inter-rig extrinsics, fusion weights, outlier rejection, smoothing, output FPS/format
-
----
-
 ## Roadmap
 
 Coming soon. 
