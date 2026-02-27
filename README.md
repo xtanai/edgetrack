@@ -234,18 +234,18 @@ Important: **a VPU is not “bad”** 🙂 — it’s simply optimized for a **d
 
 That’s why EdgeTrack focuses on **CPU + RAW-first control**: my priority is **precise geometry, timing consistency, and modular multi-rig operation** — not “depth everywhere at any cost”.
 
-| Feature                                 |                                     🧠 CPU (RAW-first) |                🧩 VPU (On-device depth) |
-| --------------------------------------- | -----------------------------------------------------: | --------------------------------------: |
-| 🗺️ Dense depth efficiency              |                                              ⚠️ Medium |                                  ✅ High |
-| 🎥 720p @ 30 FPS (dense)                | ⚠️ Borderline (depends on disparity range / filtering) |                                ✅ Stable |
-| ⚡ 120 FPS (dense)                       |                                        ❌ Not practical |                           ❌ Not typical |
-| 🎯 ROI matching (targeted)              |                                          ✅ Very strong |                              ⚠️ Limited |
-| 🧪 RAW control / pipeline freedom       |                                         ✅ Full control |                              ⚠️ Limited |
-| 🔗 Multi-rig sync / deterministic phase |                                                ✅ Ideal | ⚠️ Limited (device/framework dependent) |
+| Feature                                 | 🖥️ CPU (Pi 5) | 🖥️ CPU (Threadripper) | 📟 VPU (On-device depth) |
+|------------------------------------------|:-------------:|:----------------------:|:------------------------:|
+| 🗺️ Dense depth efficiency               | ⚠️ Medium (CPU-limited) | 🚀 Very High (brute-force compute) | ✅ High (hardware-accelerated) |
+| 🎥 720p @ 30 FPS (dense)                | ⚠️ Borderline (depends on disparity range) | ✅ Stable | ✅ Stable |
+| ⚡ 120 FPS (dense)                      | ❌ Not practical | ⚠️ Possible (heavy power usage) | ❌ Not typical |
+| 🎯 ROI matching (targeted processing)   | ✅ Very strong | ✅ Very strong | ⚠️ Limited |
+| 🎞️ RAW control / pipeline freedom      | ✅ Full control | ✅ Full control | ⚠️ Limited |
+| 🔗 Multi-rig sync / deterministic phase | ✅ Ideal | ⚠️ Complex (host-dependent) | ⚠️ Limited (device/framework dependent) ||
 
 **In short:**
-🧩 VPU is great for **“easy dense depth output.”**
-🧠 CPU/RAW-first is great for **“controlled, repeatable geometry”** and **multi-rig workflows.**
+📟 VPU is great for **“easy dense depth output.”**
+🖥️ CPU/RAW-first is great for **“controlled, repeatable geometry”** and **multi-rig workflows.**
 
 ---
 
